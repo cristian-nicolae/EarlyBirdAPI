@@ -12,4 +12,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EarlyBird.BusinessLogic\EarlyBird.BusinessLogic.csproj" />
+    <ProjectReference Include="..\EarlyBird.DataAccess\EarlyBird.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
