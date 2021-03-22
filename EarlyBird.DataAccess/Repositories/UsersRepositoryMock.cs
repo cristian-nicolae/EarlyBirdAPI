@@ -18,7 +18,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public UserModel GetByUsername(string username)
         {
-            return _users.FirstOrDefault(x => x.Usernamme == username);
+            return _users.FirstOrDefault(x => x.Username == username);
         }
         public UserModel Add(UserModel user)
         {
