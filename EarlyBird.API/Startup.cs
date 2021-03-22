@@ -43,10 +43,7 @@ namespace EarlyBird.API
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUsersService, UsersService>();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EarlyBird.API", Version = "v1" });
-            });
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +73,7 @@ namespace EarlyBird.API
 
     }
 
+    #region Extensions
     public static class ServicesExtensions
     {
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
@@ -107,5 +105,37 @@ namespace EarlyBird.API
                 options.AddPolicy(Constants.Policies.All, builder => builder.RequireClaim(Constants.Claims.All, "true"));
             });
         }
+
+        public static void AddSwagger(this IServiceCollection services)
+        {
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EarlyBird.API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Insert jwt",
+                    Name = "Bearer",
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+                    Type = SecuritySchemeType.Http
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+            });
+        }
     }
+    #endregion
 }
