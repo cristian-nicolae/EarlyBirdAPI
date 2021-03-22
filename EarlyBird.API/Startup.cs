@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EarlyBird.DataAccess.Repositories;
 
 namespace EarlyBird.API
 {
@@ -28,6 +29,8 @@ namespace EarlyBird.API
         {
 
             services.AddControllers();
+
+            services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EarlyBird.API", Version = "v1" });
