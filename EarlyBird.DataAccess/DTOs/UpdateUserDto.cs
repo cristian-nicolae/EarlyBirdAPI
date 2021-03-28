@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.DTOs
 {
-    class UpdateUserDTO
+    public class UpdateUserDto
     {
         //To Do
     }

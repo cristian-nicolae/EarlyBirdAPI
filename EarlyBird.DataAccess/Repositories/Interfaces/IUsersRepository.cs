@@ -1,4 +1,5 @@
-﻿using EarlyBird.DataAccess.Entities;
+﻿using EarlyBird.DataAccess.DTOs;
+using EarlyBird.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 
