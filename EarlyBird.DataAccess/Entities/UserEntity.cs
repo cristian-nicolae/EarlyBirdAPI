@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EarlyBird.DataAccess.Models
+namespace EarlyBird.DataAccess.Entities
 {
-    public class UserModel
+    public class UserEntity
     {
         public Guid Id { get; set; }
         public string Username { get; set; }

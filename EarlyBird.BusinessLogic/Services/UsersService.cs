@@ -38,7 +38,7 @@ namespace EarlyBird.BusinessLogic.Services
         private void SeedUsers()
         {
             var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "admin",
                 Salt = salt1,
@@ -47,7 +47,7 @@ namespace EarlyBird.BusinessLogic.Services
             });
 
             var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "worker",
                 Salt = salt2,
@@ -56,7 +56,7 @@ namespace EarlyBird.BusinessLogic.Services
             });
 
             var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "publisher",
                 Salt = salt3,

@@ -1,13 +1,16 @@
-﻿using EarlyBird.DataAccess.Models;
+﻿using EarlyBird.DataAccess.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace EarlyBird.DataAccess.Repositories.Interfaces
 {
     public interface IUsersRepository
     {
-        UserModel GetById(Guid id);
-        UserModel GetByUsername(string username);
+        UserEntity GetById(Guid id);
+        UserEntity GetByUsername(string username);
+        UserEntity Add(UserEntity user);
+        IEnumerable<UserEntity> GetAllUsers();
+        bool DeleteUser(Guid id);
 
-        UserModel Add(UserModel user);
     }
 }

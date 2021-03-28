@@ -1,5 +1,5 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
-using EarlyBird.DataAccess.Models;
+using EarlyBird.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace EarlyBird.BusinessLogic.Utils
 {
     public static class Mapper
     {
-        public static UserDto ToDto(this UserModel model)
+        public static UserDto ToDto(this UserEntity model)
         {
             return new UserDto
             {
