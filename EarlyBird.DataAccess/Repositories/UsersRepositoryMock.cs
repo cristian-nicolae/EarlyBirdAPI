@@ -4,8 +4,6 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories
 {
@@ -39,7 +37,7 @@ namespace EarlyBird.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser(UpdateUserDto updateUserDto)
+        public bool UpdateUser(UserEntity updateUserDto)
         {
             throw new NotImplementedException();
         }
