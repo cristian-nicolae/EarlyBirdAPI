@@ -41,9 +41,9 @@ namespace EarlyBird.API
 
             services.AddAuthServices(Configuration);
 
-            services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUsersService, UsersService>();
+            services.AddRepositories();
+            services.AddServices();
+
 
             services.AddSwagger();
         }
@@ -78,6 +78,22 @@ namespace EarlyBird.API
     #region Extensions
     public static class ServicesExtensions
     {
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IConversationsRepository, ConversationsRepository>();
+            services.AddScoped<IMessagesRepository, MessagesRepository>();
+            services.AddScoped<IOffersRepository, OffersRepository>();
+            services.AddScoped<IReviewsRepository, ReviewsRepository>();
+        }
+
+        public static void AddServices(this IServiceCollection services)
+        {
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUsersService, UsersService>();
+        }
+
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
