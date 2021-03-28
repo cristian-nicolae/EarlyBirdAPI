@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using EarlyBird.BusinessLogic.Services;
+using EarlyBird.BusinessLogic.Services.Interfaces;
+using EarlyBird.DataAccess.Repositories.Interfaces;
 
 namespace EarlyBird.API
 {

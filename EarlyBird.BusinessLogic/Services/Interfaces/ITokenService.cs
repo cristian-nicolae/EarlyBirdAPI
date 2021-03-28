@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EarlyBird.BusinessLogic.Services
+namespace EarlyBird.BusinessLogic.Services.Interfaces
 {
     public interface ITokenService
     {

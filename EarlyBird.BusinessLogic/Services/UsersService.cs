@@ -1,12 +1,7 @@
-﻿using EarlyBird.BusinessLogic.Utils;
+﻿using EarlyBird.BusinessLogic.Services.Interfaces;
+using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess.Repositories;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using EarlyBird.DataAccess.Repositories.Interfaces;
 
 namespace EarlyBird.BusinessLogic.Services
 {

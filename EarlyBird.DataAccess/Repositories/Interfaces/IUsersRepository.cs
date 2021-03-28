@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EarlyBird.DataAccess.Repositories
+namespace EarlyBird.DataAccess.Repositories.Interfaces
 {
     public interface IUsersRepository
     {
