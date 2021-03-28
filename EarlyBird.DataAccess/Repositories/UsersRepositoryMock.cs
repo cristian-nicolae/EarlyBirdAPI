@@ -37,5 +37,10 @@ namespace EarlyBird.DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool UpdateUser(UpdateUserDto updateUserDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
