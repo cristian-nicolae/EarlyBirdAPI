@@ -101,10 +101,10 @@ namespace EarlyBird.API
                 });
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Constants.Policies.Admin, builder => builder.RequireClaim(Constants.Claims.Admin, "true"));
-                options.AddPolicy(Constants.Policies.Worker, builder => builder.RequireClaim(Constants.Claims.Worker, "true"));
-                options.AddPolicy(Constants.Policies.Publisher, builder => builder.RequireClaim(Constants.Claims.Publisher, "true"));
-                options.AddPolicy(Constants.Policies.All, builder => builder.RequireClaim(Constants.Claims.All, "true"));
+                options.AddPolicy(Policies.Admin, builder => builder.RequireClaim(Claims.Admin, "true"));
+                options.AddPolicy(Policies.Worker, builder => builder.RequireClaim(Claims.Worker, "true"));
+                options.AddPolicy(Policies.Publisher, builder => builder.RequireClaim(Claims.Publisher, "true"));
+                options.AddPolicy(Policies.All, builder => builder.RequireClaim(Claims.All, "true"));
             });
         }
 

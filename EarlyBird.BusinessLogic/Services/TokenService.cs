@@ -46,36 +46,36 @@ namespace EarlyBird.BusinessLogic.Services
 
         #region private methods
 
-        private IEnumerable<Claim> GetClaimsAssociatedWithRole(string role)
+        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles role)
         {
             switch (role)
             {
-                case Constants.Roles.Admin:
+                case Roles.Admin:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Admin, "true"),
-                        new Claim(Constants.Claims.Worker, "true"),
-                        new Claim(Constants.Claims.Publisher, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Admin, "true"),
+                        new Claim(Claims.Worker, "true"),
+                        new Claim(Claims.Publisher, "true"),
+                        new Claim(Claims.All, "true")
                     };
 
-                case Constants.Roles.Worker:
+                case Roles.Worker:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Worker, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Worker, "true"),
+                        new Claim(Claims.All, "true")
                     };
 
-                case Constants.Roles.Publisher:
+                case Roles.Publisher:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Publisher, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Publisher, "true"),
+                        new Claim(Claims.All, "true")
                     };
                 default:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.All, "true")
                     };
 
             }

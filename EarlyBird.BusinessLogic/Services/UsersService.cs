@@ -43,7 +43,7 @@ namespace EarlyBird.BusinessLogic.Services
                 Username = "admin",
                 Salt = salt1,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
-                Role = Constants.Roles.Admin
+                Role = Roles.Admin
             });
 
             var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
@@ -52,7 +52,7 @@ namespace EarlyBird.BusinessLogic.Services
                 Username = "worker",
                 Salt = salt2,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
-                Role = Constants.Roles.Worker
+                Role = Roles.Worker
             });
 
             var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
@@ -61,7 +61,7 @@ namespace EarlyBird.BusinessLogic.Services
                 Username = "publisher",
                 Salt = salt3,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
-                Role = Constants.Roles.Publisher
+                Role = Roles.Publisher
             });
 
 

@@ -27,7 +27,7 @@ namespace EarlyBird.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = Constants.Policies.Admin)]
+        [Authorize(Policy = Policies.Admin)]
         public IActionResult Get()
         {
             return Ok();
