@@ -1,13 +1,9 @@
 ﻿using EarlyBird.API.Models;
-using EarlyBird.BusinessLogic.Services;
+using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace EarlyBird.API.Controllers
 {
@@ -31,7 +27,7 @@ namespace EarlyBird.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = Constants.Policies.Admin)]
+        [Authorize(Policy = Policies.Admin)]
         public IActionResult Get()
         {
             return Ok();

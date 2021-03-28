@@ -1,14 +1,13 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
+using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -47,36 +46,36 @@ namespace EarlyBird.BusinessLogic.Services
 
         #region private methods
 
-        private IEnumerable<Claim> GetClaimsAssociatedWithRole(string role)
+        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles role)
         {
             switch (role)
             {
-                case Constants.Roles.Admin:
+                case Roles.Admin:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Admin, "true"),
-                        new Claim(Constants.Claims.Worker, "true"),
-                        new Claim(Constants.Claims.Publisher, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Admin, "true"),
+                        new Claim(Claims.Worker, "true"),
+                        new Claim(Claims.Publisher, "true"),
+                        new Claim(Claims.All, "true")
                     };
 
-                case Constants.Roles.Worker:
+                case Roles.Worker:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Worker, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Worker, "true"),
+                        new Claim(Claims.All, "true")
                     };
 
-                case Constants.Roles.Publisher:
+                case Roles.Publisher:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.Publisher, "true"),
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.Publisher, "true"),
+                        new Claim(Claims.All, "true")
                     };
                 default:
                     return new List<Claim>
                     {
-                        new Claim(Constants.Claims.All, "true")
+                        new Claim(Claims.All, "true")
                     };
 
             }

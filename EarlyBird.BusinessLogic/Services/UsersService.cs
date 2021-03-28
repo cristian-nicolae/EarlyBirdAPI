@@ -1,12 +1,7 @@
-﻿using EarlyBird.BusinessLogic.Utils;
+﻿using EarlyBird.BusinessLogic.Services.Interfaces;
+using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess.Repositories;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using EarlyBird.DataAccess.Repositories.Interfaces;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -43,30 +38,30 @@ namespace EarlyBird.BusinessLogic.Services
         private void SeedUsers()
         {
             var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "admin",
                 Salt = salt1,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
-                Role = Constants.Roles.Admin
+                Role = Roles.Admin
             });
 
             var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "worker",
                 Salt = salt2,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
-                Role = Constants.Roles.Worker
+                Role = Roles.Worker
             });
 
             var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Models.UserModel
+            usersRepository.Add(new DataAccess.Entities.UserEntity
             {
                 Username = "publisher",
                 Salt = salt3,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
-                Role = Constants.Roles.Publisher
+                Role = Roles.Publisher
             });
 
 
