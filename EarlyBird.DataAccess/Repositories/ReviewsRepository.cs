@@ -14,7 +14,7 @@ namespace EarlyBird.API
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public bool Delete(ReviewEntity reviewEntity)
         {
             throw new NotImplementedException();
         }
@@ -34,7 +34,7 @@ namespace EarlyBird.API
             throw new NotImplementedException();
         }
 
-        public bool Update(ReviewEntity reviewEntity)
+        public bool Update(int id, ReviewEntity reviewEntity)
         {
             throw new NotImplementedException();
         }
