@@ -10,7 +10,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         UserEntity GetByUsername(string username);
         UserEntity Add(UserEntity user);
         IEnumerable<UserEntity> GetAllUsers();
-        bool DeleteUser(Guid id);
+        bool DeleteUser(UserEntity user);
         bool UpdateUser(Guid id, UserEntity updatedUser);
 
 

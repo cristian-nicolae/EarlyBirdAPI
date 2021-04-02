@@ -22,9 +22,6 @@ namespace EarlyBird.DataAccess.Repositories
         }
         public UserEntity Add(UserEntity user)
         {
-            var existingUser = GetByUsername(user.Username);
-            if (existingUser != null)
-                throw new UserAlreadyExistsException();
             user.Id = Guid.NewGuid();
             _users.Add(user);
             return user;
@@ -35,48 +32,21 @@ namespace EarlyBird.DataAccess.Repositories
             return _users;
         }
 
-        public bool DeleteUser(Guid id)
+        public bool DeleteUser(UserEntity user)
         {
-            var userToBeDeleted = GetById(id);
-            if (userToBeDeleted == null)
-                throw new UserNotFoundException();
-            return _users.Remove(userToBeDeleted);
+            return _users.Remove(user);
         }
 
         public bool UpdateUser(Guid id, UserEntity updatedUser)
         {
             var userToBeUpdated = GetById(id);
             if (userToBeUpdated == null)
-                throw new UserNotFoundException();
+                return false;
             userToBeUpdated.Username = updatedUser.Username ?? userToBeUpdated.Username;
             userToBeUpdated.PasswordHash = updatedUser.PasswordHash ?? userToBeUpdated.PasswordHash;
             userToBeUpdated.Salt = updatedUser.Salt ?? userToBeUpdated.Salt;
             userToBeUpdated.Role = updatedUser.Role ?? userToBeUpdated.Role;
             return true;
-        }
-
-        [Serializable]
-        private class UserNotFoundException : Exception
-        {
-            public UserNotFoundException()
-            {
-            }
-            public UserNotFoundException(string message) : base(message)
-            {
-            }
-
-        }
-
-        [Serializable]
-        private class UserAlreadyExistsException : Exception
-        {
-            public UserAlreadyExistsException()
-            {
-            }
-            public UserAlreadyExistsException(string message) : base(message)
-            {
-            }
-
         }
     }
 }
