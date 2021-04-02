@@ -36,16 +36,6 @@ namespace EarlyBird.DataAccess.Repositories
             return _users.Remove(user);
         }
 
-        public bool UpdateUser(Guid id, UserEntity updatedUser)
-        {
-            var userToBeUpdated = GetById(id);
-            if (userToBeUpdated == null)
-                return false;
-            userToBeUpdated.Username = updatedUser.Username ?? userToBeUpdated.Username;
-            userToBeUpdated.PasswordHash = updatedUser.PasswordHash ?? userToBeUpdated.PasswordHash;
-            userToBeUpdated.Salt = updatedUser.Salt ?? userToBeUpdated.Salt;
-            userToBeUpdated.Role = updatedUser.Role ?? userToBeUpdated.Role;
-            return true;
-        }
+
     }
 }
