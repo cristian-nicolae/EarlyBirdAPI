@@ -54,12 +54,12 @@ namespace EarlyBird.BusinessLogic.Services
         public Roles GetRoleFromClaims(ClaimsIdentity identity)
         {
             IEnumerable<Claim> claims = identity.Claims;
-            Roles role;
-            if (claims.Contains(new Claim(Claims.Admin, "true")))
+            
+            if (claims.FirstOrDefault(x => x.Type == Claims.Admin) != null)
                 return Roles.Admin;
-            if (claims.Contains(new Claim(Claims.Worker, "true")))
+            if (claims.FirstOrDefault(x => x.Type == Claims.Worker) != null)
                 return Roles.Worker;
-            if (claims.Contains(new Claim(Claims.Publisher, "true")))
+            if (claims.FirstOrDefault(x => x.Type == Claims.Publisher) != null)
                 return Roles.Publisher;
             return Roles.All;
 
