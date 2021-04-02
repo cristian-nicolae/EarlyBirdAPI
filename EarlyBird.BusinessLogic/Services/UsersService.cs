@@ -30,9 +30,9 @@ namespace EarlyBird.BusinessLogic.Services
             return usersRepository.GetAllUsers().Select(x => x.ToViewUserDto());
         }
 
-        public ViewUserDto GetById()
+        public ViewUserDto GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return usersRepository.GetById(id).ToViewUserDto();
         }
 
         public ViewUserDto GetByUsername()
