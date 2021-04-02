@@ -1,6 +1,7 @@
 ﻿using EarlyBird.API.Models;
 using EarlyBird.API.Utils;
 using EarlyBird.BusinessLogic.Services;
+using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.DataAccess.Utils;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace EarlyBird.API.Controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly UsersService usersService;
+        private readonly IUsersService usersService;
 
-        public RegisterController(UsersService usersService)
+        public RegisterController(IUsersService usersService)
         {
             this.usersService = usersService;
         }
