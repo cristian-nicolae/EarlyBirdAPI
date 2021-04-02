@@ -11,7 +11,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         IEnumerable<OfferEntity> GetAllAvailableOffers();
         IEnumerable<OfferEntity> GetPublisherOffers(Guid publisherId);
         OfferEntity Add(OfferEntity offerEntity);
-        bool Delete(int id);
-        bool Update(OfferEntity offerEntity);
+        bool Delete(OfferEntity offerEntity);
+        bool Update(int id, OfferEntity offerEntity);
     }
 }
