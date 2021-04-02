@@ -46,7 +46,7 @@ namespace EarlyBird.BusinessLogic.Services
 
         #region private methods
 
-        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles role)
+        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles? role)
         {
             switch (role)
             {
