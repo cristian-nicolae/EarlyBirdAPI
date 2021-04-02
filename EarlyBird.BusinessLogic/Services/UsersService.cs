@@ -7,6 +7,7 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -42,7 +43,10 @@ namespace EarlyBird.BusinessLogic.Services
 
         public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var user = usersRepository.GetById(id);
+            if (user == null)
+                throw new UserNotFoundException();
+            return usersRepository.Delete(user);
         }
 
         public string Register(RegisterUserDto registerUserDto)
@@ -124,6 +128,18 @@ namespace EarlyBird.BusinessLogic.Services
             {
             }
 
+        }
+
+        [Serializable]
+        private class UserNotFoundException : Exception
+        {
+            public UserNotFoundException()
+            {
+            }
+
+            public UserNotFoundException(string message) : base(message)
+            {
+            }
         }
 
         #endregion
