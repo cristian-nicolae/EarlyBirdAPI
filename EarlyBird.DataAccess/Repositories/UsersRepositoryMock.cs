@@ -3,6 +3,7 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EarlyBird.DataAccess.Repositories
 {
@@ -33,12 +34,27 @@ namespace EarlyBird.DataAccess.Repositories
 
         public bool DeleteUser(Guid id)
         {
-            throw new NotImplementedException();
+            var userToBeDeleted = GetById(id);
+            if (userToBeDeleted == null)
+                throw new UserNotFoundException();
+            return _users.Remove(userToBeDeleted);
         }
 
         public bool UpdateUser(UserEntity updatedUser)
         {
             throw new NotImplementedException();
+        }
+
+        [Serializable]
+        private class UserNotFoundException : Exception
+        {
+            public UserNotFoundException()
+            {
+            }
+            public UserNotFoundException(string message) : base(message)
+            {
+            }
+
         }
     }
 }
