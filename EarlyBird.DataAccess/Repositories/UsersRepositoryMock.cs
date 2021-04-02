@@ -26,12 +26,12 @@ namespace EarlyBird.DataAccess.Repositories
             return user;
         }
 
-        public IEnumerable<UserEntity> GetAllUsers()
+        public IEnumerable<UserEntity> GetAll()
         {
             return _users;
         }
 
-        public bool DeleteUser(UserEntity user)
+        public bool Delete(UserEntity user)
         {
             return _users.Remove(user);
         }
