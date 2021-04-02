@@ -1,11 +1,13 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -40,6 +42,27 @@ namespace EarlyBird.BusinessLogic.Services
                 signingCredentials: signinCredentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+        }
+
+        public Guid GetUserIdFromClaims(ClaimsIdentity identity)
+        {
+            IEnumerable<Claim> claims = identity.Claims;
+            var idClaim = claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
+            return Guid.Parse(idClaim.Value);
+        }
+
+        public Roles GetRoleFromClaims(ClaimsIdentity identity)
+        {
+            IEnumerable<Claim> claims = identity.Claims;
+            Roles role;
+            if (claims.Contains(new Claim(Claims.Admin, "true")))
+                return Roles.Admin;
+            if (claims.Contains(new Claim(Claims.Worker, "true")))
+                return Roles.Worker;
+            if (claims.Contains(new Claim(Claims.Publisher, "true")))
+                return Roles.Publisher;
+            return Roles.All;
+
         }
 
 

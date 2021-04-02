@@ -4,6 +4,7 @@ using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
+using EarlyBird.DataAccess.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

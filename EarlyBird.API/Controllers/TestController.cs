@@ -1,6 +1,6 @@
 ﻿using EarlyBird.API.Models;
+using EarlyBird.API.Utils;
 using EarlyBird.BusinessLogic.Services.Interfaces;
-using EarlyBird.BusinessLogic.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

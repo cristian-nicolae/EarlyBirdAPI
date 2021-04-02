@@ -1,4 +1,4 @@
-﻿using EarlyBird.BusinessLogic.Utils;
+﻿using EarlyBird.DataAccess.Utils;
 
 namespace EarlyBird.BusinessLogic.DTOs
 {
