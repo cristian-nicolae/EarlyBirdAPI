@@ -22,6 +22,9 @@ namespace EarlyBird.DataAccess.Repositories
         }
         public UserEntity Add(UserEntity user)
         {
+            var existingUser = GetByUsername(user.Username);
+            if (existingUser != null)
+                throw new UserAlreadyExistsException();
             user.Id = Guid.NewGuid();
             _users.Add(user);
             return user;
@@ -52,6 +55,18 @@ namespace EarlyBird.DataAccess.Repositories
             {
             }
             public UserNotFoundException(string message) : base(message)
+            {
+            }
+
+        }
+
+        [Serializable]
+        private class UserAlreadyExistsException : Exception
+        {
+            public UserAlreadyExistsException()
+            {
+            }
+            public UserAlreadyExistsException(string message) : base(message)
             {
             }
 
