@@ -28,7 +28,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public IEnumerable<UserEntity> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _users;
         }
 
         public bool DeleteUser(Guid id)
@@ -36,7 +36,7 @@ namespace EarlyBird.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public bool UpdateUser(UserEntity updateUserDto)
+        public bool UpdateUser(UserEntity updatedUser)
         {
             throw new NotImplementedException();
         }
