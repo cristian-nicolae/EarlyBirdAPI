@@ -6,8 +6,8 @@ namespace EarlyBird.BusinessLogic.Utils
         public enum Roles
         {
             Admin = 1,
-            Worker,
-            Publisher
+            Worker = 2,
+            Publisher = 3
         }
 
         public static class Claims
