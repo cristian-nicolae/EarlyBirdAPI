@@ -34,12 +34,12 @@ namespace EarlyBird.BusinessLogic.Services
 
         public ViewUserDto GetById(Guid id)
         {
-            return usersRepository.GetById(id).ToViewUserDto();
+            return usersRepository.GetById(id)?.ToViewUserDto();
         }
 
         public ViewUserDto GetByUsername(string username)
         {
-            return usersRepository.GetByUsername(username).ToViewUserDto();
+            return usersRepository.GetByUsername(username)?.ToViewUserDto();
         }
 
         public bool Delete(Guid id)
