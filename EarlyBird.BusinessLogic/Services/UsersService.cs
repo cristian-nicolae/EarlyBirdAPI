@@ -28,7 +28,7 @@ namespace EarlyBird.BusinessLogic.Services
         }
         public IEnumerable<ViewUserDto> GetAll()
         {
-            return usersRepository.GetAllUsers().Select(x => x.ToViewUserDto());
+            return usersRepository.GetAll().Select(x => x.ToViewUserDto());
         }
 
         public ViewUserDto GetById(Guid id)
