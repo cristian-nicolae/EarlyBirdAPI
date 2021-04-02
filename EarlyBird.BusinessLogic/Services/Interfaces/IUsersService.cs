@@ -9,7 +9,7 @@ namespace EarlyBird.BusinessLogic.Services.Interfaces
     {
         IEnumerable<ViewUserDto> GetAll();
         ViewUserDto GetById(Guid id);
-        ViewUserDto GetByUsername();
+        ViewUserDto GetByUsername(string username);
         bool Delete(Guid id);
         string Register(RegisterUserDto registerUserDto);
         string Authenticate(string username, string password);

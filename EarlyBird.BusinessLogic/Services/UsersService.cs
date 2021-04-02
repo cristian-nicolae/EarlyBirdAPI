@@ -35,9 +35,9 @@ namespace EarlyBird.BusinessLogic.Services
             return usersRepository.GetById(id).ToViewUserDto();
         }
 
-        public ViewUserDto GetByUsername()
+        public ViewUserDto GetByUsername(string username)
         {
-            throw new NotImplementedException();
+            return usersRepository.GetByUsername(username).ToViewUserDto();
         }
 
         public bool Delete(Guid id)
