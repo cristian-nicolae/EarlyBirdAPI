@@ -8,7 +8,7 @@ namespace EarlyBird.BusinessLogic.DTOs
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
-        public Roles? Role { get; set; }
+        public Roles Role { get; set; }
 
     }
 }
