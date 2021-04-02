@@ -1,7 +1,10 @@
-﻿using EarlyBird.BusinessLogic.Services.Interfaces;
+﻿using EarlyBird.BusinessLogic.DTOs;
+using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
+using System;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -22,7 +25,25 @@ namespace EarlyBird.BusinessLogic.Services
         }
 
 
+        public string Register(RegisterUserDto registerUserDto)
+        {
+            var existingUser = usersRepository.GetByUsername(registerUserDto.Username);
+            if (existingUser != null)
+                throw new UserAlreadyExistingException();
 
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
+            var newUser = new UserEntity
+            {
+                Id = Guid.NewGuid(),
+                Username = registerUserDto.Username,
+                Salt = salt,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerUserDto.Password + salt),
+                Role = registerUserDto.Role
+            };
+            newUser = usersRepository.Add(newUser);
+            return tokenService.GenerateAccessToken(newUser.ToDto());
+
+        }
         public string Authenticate(string username, string password)
         {
             var user = usersRepository.GetByUsername(username);
@@ -34,12 +55,13 @@ namespace EarlyBird.BusinessLogic.Services
         }
 
 
-        #region private methods
+        #region private
         private void SeedUsers()
         {
             var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
             usersRepository.Add(new DataAccess.Entities.UserEntity
             {
+                Id = Guid.NewGuid(),
                 Username = "admin",
                 Salt = salt1,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
@@ -49,6 +71,7 @@ namespace EarlyBird.BusinessLogic.Services
             var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
             usersRepository.Add(new DataAccess.Entities.UserEntity
             {
+                Id = Guid.NewGuid(),
                 Username = "worker",
                 Salt = salt2,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
@@ -58,12 +81,26 @@ namespace EarlyBird.BusinessLogic.Services
             var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
             usersRepository.Add(new DataAccess.Entities.UserEntity
             {
+                Id = Guid.NewGuid(),
                 Username = "publisher",
                 Salt = salt3,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
                 Role = Roles.Publisher
             });
 
+
+        }
+
+        [System.Serializable]
+        private class UserAlreadyExistingException : System.Exception
+        {
+            public UserAlreadyExistingException()
+            {
+            }
+
+            public UserAlreadyExistingException(string message) : base(message)
+            {
+            }
 
         }
 
