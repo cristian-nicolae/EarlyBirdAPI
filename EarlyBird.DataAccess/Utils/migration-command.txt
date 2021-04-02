@@ -1,0 +1,2 @@
+﻿
+dotnet ef migrations add //migration_name --project ./EarlyBird.DataAccess/EarlyBird.DataAccess.csproj --startup-project ./EarlyBird.API/EarlyBird.API.csproj

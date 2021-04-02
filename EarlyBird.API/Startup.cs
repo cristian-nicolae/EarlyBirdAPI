@@ -1,25 +1,21 @@
+using EarlyBird.BusinessLogic.Services;
+using EarlyBird.BusinessLogic.Services.Interfaces;
+using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess;
+using EarlyBird.DataAccess.Repositories;
+using EarlyBird.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EarlyBird.DataAccess.Repositories;
-using EarlyBird.BusinessLogic.Utils;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using EarlyBird.BusinessLogic.Services;
-using EarlyBird.BusinessLogic.Services.Interfaces;
-using EarlyBird.DataAccess.Repositories.Interfaces;
 
 namespace EarlyBird.API
 {
@@ -36,6 +32,8 @@ namespace EarlyBird.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
+
+            services.AddDbContextPool<EarlyBirdContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"), b => b.MigrationsAssembly("EarlyBird.DataAccess")));
 
             services.AddControllers();
 
