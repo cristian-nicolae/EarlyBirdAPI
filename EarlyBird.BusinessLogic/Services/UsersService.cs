@@ -119,7 +119,7 @@ namespace EarlyBird.BusinessLogic.Services
        
 
         [System.Serializable]
-        private class UserAlreadyExistingException : System.Exception
+        public class UserAlreadyExistingException : System.Exception
         {
             public UserAlreadyExistingException()
             {
@@ -132,7 +132,7 @@ namespace EarlyBird.BusinessLogic.Services
         }
 
         [Serializable]
-        private class UserNotFoundException : Exception
+        public class UserNotFoundException : Exception
         {
             public UserNotFoundException()
             {
