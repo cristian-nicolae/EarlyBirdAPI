@@ -22,7 +22,6 @@ namespace EarlyBird.DataAccess.Repositories
         }
         public UserEntity Add(UserEntity user)
         {
-            user.Id = Guid.NewGuid();
             _users.Add(user);
             return user;
         }
