@@ -5,6 +5,8 @@ using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -23,7 +25,25 @@ namespace EarlyBird.BusinessLogic.Services
             if (this.usersRepository.GetType() == typeof(UsersRepositoryMock))
                 SeedUsers();
         }
+        public IEnumerable<ViewUserDto> GetAll()
+        {
+            return usersRepository.GetAllUsers().Select(x => x.ToViewUserDto());
+        }
 
+        public ViewUserDto GetById()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ViewUserDto GetByUsername()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
 
         public string Register(RegisterUserDto registerUserDto)
         {
@@ -90,6 +110,8 @@ namespace EarlyBird.BusinessLogic.Services
 
 
         }
+
+       
 
         [System.Serializable]
         private class UserAlreadyExistingException : System.Exception
