@@ -31,7 +31,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public IEnumerable<UserEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Users.ToList();
         }
 
         public UserEntity GetById(Guid id)
