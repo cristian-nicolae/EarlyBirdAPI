@@ -2,8 +2,10 @@
 using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Utils;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EarlyBird.DataAccess
 {
@@ -60,9 +62,28 @@ namespace EarlyBird.DataAccess
                  .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
+            modelBuilder.Entity<CategoryEntity>().HasData(GetSeedData<CategoryEntity>("CategorySeed.json"));
+            modelBuilder.Entity<LocationEntity>().HasData(GetSeedData<LocationEntity>("LocationSeed.json"));
+            modelBuilder.Entity<OfferEntity>().HasData(GetSeedData<OfferEntity>("OfferSeed.json"));
+            modelBuilder.Entity<OfferCategoryEntity>().HasData(GetSeedData<OfferCategoryEntity>("OfferCategorySeed.json"));
+            modelBuilder.Entity<ReviewEntity>().HasData(GetSeedData<ReviewEntity>("ReviewSeed.json"));
+
+
         }
 
         #region private methods
+
+        private IEnumerable<T> GetSeedData<T>(string file)
+        {
+            string basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\"));
+            string relativePath = Path.Combine("EarlyBird.DataAccess", "Utils", "Seeds");
+            string fullPath = Path.Combine(basePath, relativePath, file);
+            using ( StreamReader sr = new StreamReader(fullPath))
+            {
+                string json = sr.ReadToEnd();
+                return JsonConvert.DeserializeObject<List<T>>(json);
+            }
+        }
         private IEnumerable<UserEntity> SeedUsers()
         {
             var users = new List<UserEntity>();
