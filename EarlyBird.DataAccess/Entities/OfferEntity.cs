@@ -45,7 +45,7 @@ namespace EarlyBird.DataAccess.Entities
         public string Notes { get; set; }
 
         [ForeignKey("AccepterId")]
-        public Guid AccepterId { get; set; }
+        public Guid? AccepterId { get; set; }
 
         public UserEntity Accepter { get; set; }
 

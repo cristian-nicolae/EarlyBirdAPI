@@ -34,6 +34,7 @@ namespace EarlyBird.DataAccess
                 .HasOne<UserEntity>(o => o.Accepter)
                 .WithMany(u => u.OffersAccepted)
                 .HasForeignKey(o => o.AccepterId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<OfferEntity>()
