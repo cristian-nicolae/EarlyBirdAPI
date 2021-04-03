@@ -24,29 +24,40 @@ namespace EarlyBird.DataAccess
         {
             modelBuilder.Entity<OfferEntity>()
                 .HasOne<UserEntity>(o => o.Publisher)
-                .WithMany(u => u.Offers)
-                .HasForeignKey(o => o.PublisherId);
+                .WithMany(u => u.OffersPublished)
+                .HasForeignKey(o => o.PublisherId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<OfferEntity>()
+                .HasOne<UserEntity>(o => o.Accepter)
+                .WithMany(u => u.OffersAccepted)
+                .HasForeignKey(o => o.AccepterId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ReviewEntity>()
                  .HasOne<UserEntity>(r => r.Receiver)
                  .WithMany(u => u.ReviewsReceived)
-                 .HasForeignKey(r => r.ReceiverId);
+                 .HasForeignKey(r => r.ReceiverId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ReviewEntity>()
                  .HasOne<UserEntity>(r => r.Sender)
                  .WithMany(u => u.ReviewsSent)
-                 .HasForeignKey(r => r.SenderId);
+                 .HasForeignKey(r => r.SenderId)
+                 .OnDelete(DeleteBehavior.NoAction);
 
 
             modelBuilder.Entity<OfferCategoryEntity>()
                  .HasOne<CategoryEntity>(oc => oc.Category)
                  .WithMany(c => c.Offers)
-                 .HasForeignKey(oc => oc.CategoryId);
+                 .HasForeignKey(oc => oc.CategoryId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<OfferCategoryEntity>()
                  .HasOne<OfferEntity>(oc => oc.Offer)
                  .WithMany(o => o.Categories)
-                 .HasForeignKey(oc => oc.OfferId);
+                 .HasForeignKey(oc => oc.OfferId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
         }
