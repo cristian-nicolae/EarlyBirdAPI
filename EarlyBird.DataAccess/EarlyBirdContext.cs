@@ -84,6 +84,24 @@ namespace EarlyBird.DataAccess
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
                 Role = Roles.Publisher
             });
+            var salt4 = BCrypt.Net.BCrypt.GenerateSalt();
+            users.Add(new UserEntity
+            {
+                Id = Guid.Parse("1545516d-abe8-4597-96a4-7998e8c51c79"),
+                Username = "publisher2",
+                Salt = salt4,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt4),
+                Role = Roles.Publisher
+            });
+            var salt5 = BCrypt.Net.BCrypt.GenerateSalt();
+            users.Add(new UserEntity
+            {
+                Id = Guid.Parse("d935c8e9-ab96-4ae9-a7b3-6c6e6ec384c5"),
+                Username = "worker2",
+                Salt = salt5,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt5),
+                Role = Roles.Worker
+            });
 
             return users;
         }
