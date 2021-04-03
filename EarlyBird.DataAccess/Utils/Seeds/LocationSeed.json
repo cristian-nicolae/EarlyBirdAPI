@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "cityName": "Rawa Mazowiecka",
+    "streetName": "Sutherland",
+    "streetNumber": "5694"
+  },
+  {
+    "id": 2,
+    "cityName": "Mojo",
+    "streetName": "Vernon",
+    "streetNumber": "1029"
+  },
+  {
+    "id": 3,
+    "cityName": "Lubei",
+    "streetName": "Grover",
+    "streetNumber": "755"
+  },
+  {
+    "id": 4,
+    "cityName": "Presidente Epitácio",
+    "streetName": "Fulton",
+    "streetNumber": "3"
+  }
+]

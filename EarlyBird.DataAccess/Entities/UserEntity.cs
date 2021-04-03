@@ -17,8 +17,8 @@ namespace EarlyBird.DataAccess.Entities
         [Required]
         public Roles Role { get; set; }
 
-        public ICollection<OfferEntity> Offers { get; set; }
-
+        public ICollection<OfferEntity> OffersPublished { get; set; }
+        public ICollection<OfferEntity> OffersAccepted { get; set; }
         public ICollection<ReviewEntity> ReviewsReceived { get; set; }
 
         public ICollection<ReviewEntity> ReviewsSent { get; set; }
