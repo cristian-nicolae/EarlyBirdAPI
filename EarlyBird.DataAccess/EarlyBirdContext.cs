@@ -1,5 +1,9 @@
-﻿using EarlyBird.DataAccess.Entities;
+﻿using BCrypt.Net;
+using EarlyBird.DataAccess.Entities;
+using EarlyBird.DataAccess.Utils;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace EarlyBird.DataAccess
 {
@@ -43,7 +47,48 @@ namespace EarlyBird.DataAccess
                  .HasOne<OfferEntity>(oc => oc.Offer)
                  .WithMany(o => o.Categories)
                  .HasForeignKey(oc => oc.OfferId);
+
+            modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
         }
+
+        #region private methods
+        private IEnumerable<UserEntity> SeedUsers()
+        {
+            var users = new List<UserEntity>();
+            var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
+            users.Add(new UserEntity
+            {
+                Id = Guid.NewGuid(),
+                Username = "admin",
+                Salt = salt1,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
+                Role = Roles.Admin
+            });
+
+            var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
+            users.Add(new UserEntity
+            {
+                Id = Guid.NewGuid(),
+                Username = "worker",
+                Salt = salt2,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
+                Role = Roles.Worker
+            });
+
+            var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
+            users.Add(new UserEntity
+            {
+                Id = Guid.NewGuid(),
+                Username = "publisher",
+                Salt = salt3,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
+                Role = Roles.Publisher
+            });
+
+            return users;
+        }
+        #endregion
+
 
     }
 }

@@ -80,7 +80,7 @@ namespace EarlyBird.API
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IUsersRepository, UsersRepositoryMock>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IConversationsRepository, ConversationsRepository>();
             services.AddScoped<IMessagesRepository, MessagesRepository>();
