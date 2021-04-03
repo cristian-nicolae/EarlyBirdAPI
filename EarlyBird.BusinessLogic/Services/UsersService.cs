@@ -78,7 +78,7 @@ namespace EarlyBird.BusinessLogic.Services
         }
 
 
-        #region private       
+        #region exceptions       
 
         [System.Serializable]
         public class UserAlreadyExistingException : System.Exception
