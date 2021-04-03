@@ -82,7 +82,7 @@ namespace EarlyBird.DataAccess
 
         private IEnumerable<T> GetSeedData<T>(string file)
         {
-            string basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\"));
+            string basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
             string relativePath = Path.Combine("EarlyBird.DataAccess", "Utils", "Seeds");
             string fullPath = Path.Combine(basePath, relativePath, file);
             using ( StreamReader sr = new StreamReader(fullPath))
