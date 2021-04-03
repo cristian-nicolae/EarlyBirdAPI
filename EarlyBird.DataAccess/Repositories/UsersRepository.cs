@@ -25,7 +25,8 @@ namespace EarlyBird.DataAccess.Repositories
 
         public bool Delete(UserEntity user)
         {
-            throw new NotImplementedException();
+            context.Users.Remove(user);
+            return context.SaveChanges() > 0;
         }
 
         public IEnumerable<UserEntity> GetAll()
