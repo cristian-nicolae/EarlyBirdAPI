@@ -58,7 +58,7 @@ namespace EarlyBird.DataAccess
             var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
             users.Add(new UserEntity
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("07d94746-c113-4de6-a0bf-8c4789b51c67"),
                 Username = "admin",
                 Salt = salt1,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
@@ -68,7 +68,7 @@ namespace EarlyBird.DataAccess
             var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
             users.Add(new UserEntity
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("6ac15295-fffe-49a8-aaaf-cca3255e9bb0"),
                 Username = "worker",
                 Salt = salt2,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
@@ -78,7 +78,7 @@ namespace EarlyBird.DataAccess
             var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
             users.Add(new UserEntity
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("3a779cd5-acf9-44be-b1c9-342f5edc88cb"),
                 Username = "publisher",
                 Salt = salt3,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
