@@ -24,8 +24,6 @@ namespace EarlyBird.BusinessLogic.Services
             this.usersRepository = usersRepository;
             this.tokenService = tokenService;
 
-            if (this.usersRepository.GetType() == typeof(UsersRepositoryMock))
-                SeedUsers();
         }
         public IEnumerable<ViewUserDto> GetAll()
         {
@@ -80,43 +78,7 @@ namespace EarlyBird.BusinessLogic.Services
         }
 
 
-        #region private
-        private void SeedUsers()
-        {
-            var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Entities.UserEntity
-            {
-                Id = Guid.NewGuid(),
-                Username = "admin",
-                Salt = salt1,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
-                Role = Roles.Admin
-            });
-
-            var salt2 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Entities.UserEntity
-            {
-                Id = Guid.NewGuid(),
-                Username = "worker",
-                Salt = salt2,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
-                Role = Roles.Worker
-            });
-
-            var salt3 = BCrypt.Net.BCrypt.GenerateSalt();
-            usersRepository.Add(new DataAccess.Entities.UserEntity
-            {
-                Id = Guid.NewGuid(),
-                Username = "publisher",
-                Salt = salt3,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
-                Role = Roles.Publisher
-            });
-
-
-        }
-
-       
+        #region private       
 
         [System.Serializable]
         public class UserAlreadyExistingException : System.Exception
