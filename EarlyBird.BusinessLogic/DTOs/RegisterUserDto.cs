@@ -1,14 +1,11 @@
 ﻿using EarlyBird.DataAccess.Utils;
-using System;
-
 
 namespace EarlyBird.BusinessLogic.DTOs
 {
-    public class UserDto
+    public class RegisterUserDto
     {
-        public Guid Id { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
         public Roles Role { get; set; }
-
     }
 }

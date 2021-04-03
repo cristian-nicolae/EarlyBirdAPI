@@ -13,7 +13,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         CategoryEntity GetByName(string name);
         IEnumerable<CategoryEntity> GetAll();
         CategoryEntity Add(CategoryEntity categoryEntity);
-        bool Delete(int id);
-        bool Update(CategoryEntity categoryEntity);
+        bool Delete(CategoryEntity categoryEntity);
+        bool Update(int id, CategoryEntity categoryEntity);
     }
 }

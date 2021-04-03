@@ -2,6 +2,7 @@ using EarlyBird.BusinessLogic.Services;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess;
+using EarlyBird.API.Utils;
 using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 
 namespace EarlyBird.API

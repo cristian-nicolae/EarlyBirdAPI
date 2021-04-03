@@ -6,13 +6,23 @@ namespace EarlyBird.BusinessLogic.Utils
 {
     public static class Mapper
     {
-        public static UserDto ToDto(this UserEntity model)
+        public static UserDto ToDto(this UserEntity entity)
         {
             return new UserDto
             {
-                Id = model.Id,
-                Username = model.Username,
-                Role = model.Role
+                Id = entity.Id,
+                Username = entity.Username,
+                Role = entity.Role
+            };
+        }
+
+        public static ViewUserDto ToViewUserDto(this UserEntity entity)
+        {
+            return new ViewUserDto
+            {
+                Id = entity.Id,
+                Username = entity.Username,
+                Role = entity.Role
             };
         }
     }

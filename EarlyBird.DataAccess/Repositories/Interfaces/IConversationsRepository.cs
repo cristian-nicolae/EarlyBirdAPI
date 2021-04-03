@@ -12,7 +12,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         ConversationEntity GetById(int id);
         IEnumerable<ConversationEntity> GetUserConversations(Guid userId);
         ConversationEntity Add(ConversationEntity conversationEntity);
-        bool Delete(int id);
-        bool Update(ConversationEntity conversationEntity);
+        bool Delete(ConversationEntity conversationEntity);
+        bool Update(int id, ConversationEntity conversationEntity);
     }
 }
