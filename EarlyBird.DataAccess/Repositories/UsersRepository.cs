@@ -41,7 +41,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public UserEntity GetByUsername(string username)
         {
-            throw new NotImplementedException();
+            return context.Users.FirstOrDefault(x => x.Username == username);
         }
     }
 }
