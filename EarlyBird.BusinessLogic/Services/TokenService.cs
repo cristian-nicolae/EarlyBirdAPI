@@ -1,11 +1,13 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -42,11 +44,32 @@ namespace EarlyBird.BusinessLogic.Services
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
 
+        public Guid GetUserIdFromClaims(ClaimsIdentity identity)
+        {
+            IEnumerable<Claim> claims = identity.Claims;
+            var idClaim = claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub);
+            return Guid.Parse(idClaim.Value);
+        }
+
+        public Roles GetRoleFromClaims(ClaimsIdentity identity)
+        {
+            IEnumerable<Claim> claims = identity.Claims;
+            
+            if (claims.FirstOrDefault(x => x.Type == Claims.Admin) != null)
+                return Roles.Admin;
+            if (claims.FirstOrDefault(x => x.Type == Claims.Worker) != null)
+                return Roles.Worker;
+            if (claims.FirstOrDefault(x => x.Type == Claims.Publisher) != null)
+                return Roles.Publisher;
+            return Roles.All;
+
+        }
+
 
 
         #region private methods
 
-        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles role)
+        private IEnumerable<Claim> GetClaimsAssociatedWithRole(Roles? role)
         {
             switch (role)
             {

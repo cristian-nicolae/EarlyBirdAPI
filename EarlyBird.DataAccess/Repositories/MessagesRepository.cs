@@ -15,7 +15,7 @@ namespace EarlyBird.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public bool Delete(MessageEntity messageEntity)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +30,7 @@ namespace EarlyBird.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public bool Update(MessageEntity messageEntity)
+        public bool Update(int id, MessageEntity messageEntity)
         {
             throw new NotImplementedException();
         }

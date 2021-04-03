@@ -3,6 +3,7 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EarlyBird.DataAccess.Repositories
 {
@@ -21,24 +22,20 @@ namespace EarlyBird.DataAccess.Repositories
         }
         public UserEntity Add(UserEntity user)
         {
-            user.Id = Guid.NewGuid();
             _users.Add(user);
             return user;
         }
 
-        public IEnumerable<UserEntity> GetAllUsers()
+        public IEnumerable<UserEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return _users;
         }
 
-        public bool DeleteUser(Guid id)
+        public bool Delete(UserEntity user)
         {
-            throw new NotImplementedException();
+            return _users.Remove(user);
         }
 
-        public bool UpdateUser(UserEntity updateUserDto)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
