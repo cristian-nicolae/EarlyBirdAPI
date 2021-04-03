@@ -18,7 +18,9 @@ namespace EarlyBird.DataAccess.Repositories
         }
         public UserEntity Add(UserEntity user)
         {
-            throw new NotImplementedException();
+            context.Users.Add(user);
+            context.SaveChanges();
+            return user;
         }
 
         public bool Delete(UserEntity user)
