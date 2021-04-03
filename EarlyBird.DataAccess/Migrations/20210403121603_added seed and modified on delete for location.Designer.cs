@@ -3,14 +3,16 @@ using System;
 using EarlyBird.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EarlyBird.DataAccess.Migrations
 {
     [DbContext(typeof(EarlyBirdContext))]
-    partial class EarlyBirdContextModelSnapshot : ModelSnapshot
+    [Migration("20210403121603_added seed and modified on delete for location")]
+    partial class addedseedandmodifiedondeleteforlocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
