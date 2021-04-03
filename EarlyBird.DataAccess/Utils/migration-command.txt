@@ -1,0 +1,1 @@
+﻿dotnet ef database update --project ./EarlyBird.DataAccess/EarlyBird.DataAccess.csproj --startup-project ./EarlyBird.API/EarlyBird.API.csproj
