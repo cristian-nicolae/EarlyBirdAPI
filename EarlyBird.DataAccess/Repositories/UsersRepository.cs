@@ -36,7 +36,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public UserEntity GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return context.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public UserEntity GetByUsername(string username)
