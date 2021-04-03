@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Pet Sitting"
+  },
+  {
+    "id": 2,
+    "name": "House Sitting"
+  },
+  {
+    "id": 3,
+    "name": "Food Delivery"
+  },
+  {
+    "id": 4,
+    "name": "Car Renting"
+  },
+  {
+    "id": 5,
+    "name": "Babysitting"
+  },
+  {
+    "id": 6,
+    "name": "Housecleaning"
+  },
+  {
+    "id": 7,
+    "name": "Tutoring"
+  }
+]
