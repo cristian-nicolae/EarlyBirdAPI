@@ -10,34 +10,45 @@ namespace EarlyBird.DataAccess.Repositories
 {
     public class CategoriesRepository : ICategoriesRepository
     {
+        private readonly EarlyBirdContext context;
+        public CategoriesRepository(EarlyBirdContext context) 
+        {
+            this.context = context;
+        }
         public CategoryEntity Add(CategoryEntity categoryEntity)
         {
-            throw new NotImplementedException();
+            context.Categories.Add(categoryEntity);
+            context.SaveChanges();
+            return categoryEntity;
         }
 
         public bool Delete(CategoryEntity categoryEntity)
         {
-            throw new NotImplementedException();
+            context.Remove(categoryEntity);
+            return context.SaveChanges() > 0;
         }
 
         public IEnumerable<CategoryEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Categories.ToList();
         }
 
         public CategoryEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Categories.FirstOrDefault(c => c.Id == id);
         }
 
         public CategoryEntity GetByName(string name)
         {
-            throw new NotImplementedException();
+            return context.Categories.FirstOrDefault(c => c.Name == name);
         }
 
         public bool Update(int id, CategoryEntity categoryEntity)
         {
-            throw new NotImplementedException();
+            var oldCategory = GetById(id);
+            oldCategory.Name = categoryEntity.Name;
+            return context.SaveChanges() > 0; 
         }
+
     }
 }
