@@ -672,41 +672,41 @@ namespace EarlyBird.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("07d94746-c113-4de6-a0bf-8c4789b51c67"),
-                            PasswordHash = "$2a$11$nHdgHi75J25LWKUhaK7KWultXLnlksahDiRyPxkopRku0G351qnue",
+                            PasswordHash = "$2a$11$eWNbDFL9/WIESGCmjLzwyOIlv9Z/B5/BwOkTGnS4xXk9RHvpGyogS",
                             Role = 1,
-                            Salt = "$2a$11$c7MgKEyUtumAxrYpGefCXe",
+                            Salt = "$2a$11$MY34t0S43tK31R19ScAXce",
                             Username = "admin"
                         },
                         new
                         {
                             Id = new Guid("6ac15295-fffe-49a8-aaaf-cca3255e9bb0"),
-                            PasswordHash = "$2a$11$KhxQs/Oui3MVt9L1zFzWaeCa5qbXmPIOpoZdhd/j9Oyd1peNFLeOK",
+                            PasswordHash = "$2a$11$tknKLk3iIg6kSt1E4UnSm.WoclHO8yaePY5Dnp46IBjPtxhvdY76G",
                             Role = 2,
-                            Salt = "$2a$11$bPW/bk2.Q72OqesrTEIEeu",
+                            Salt = "$2a$11$3w.wDJKdirNBH80vFrMum.",
                             Username = "worker"
                         },
                         new
                         {
                             Id = new Guid("3a779cd5-acf9-44be-b1c9-342f5edc88cb"),
-                            PasswordHash = "$2a$11$o4i3FK41vjn4RuuoIGQdDOR4SHRP.nG61k.pjgP7XOIooa.6A/iG6",
+                            PasswordHash = "$2a$11$jDv1k4vrVJQxE8SgT2.NHenkVhxwVLg8w/iYW87Vj2u9c6ggYh1EO",
                             Role = 3,
-                            Salt = "$2a$11$ro0wsAYm0gkGG32mpOnyje",
+                            Salt = "$2a$11$6.VRtEKtwXWa87R.IMUe0u",
                             Username = "publisher"
                         },
                         new
                         {
                             Id = new Guid("1545516d-abe8-4597-96a4-7998e8c51c79"),
-                            PasswordHash = "$2a$11$M/DrLrXmrW/q0o530Ikwvextr72m9S0u0zxoX/OmwrHot5NiZfchy",
+                            PasswordHash = "$2a$11$TP0b3YCW0utPr6lMsNUUwubvGcRueRPNDgM7Ve8VZazrSNbjr.twy",
                             Role = 3,
-                            Salt = "$2a$11$ejHA9pZGG57BnRRi7bbcWO",
+                            Salt = "$2a$11$nUlMz08qlDiLG3BxM3Cfke",
                             Username = "publisher2"
                         },
                         new
                         {
                             Id = new Guid("d935c8e9-ab96-4ae9-a7b3-6c6e6ec384c5"),
-                            PasswordHash = "$2a$11$cz3M4v8AqG8.Br0u6aP/0.O31ckBfgWla0JxqbSVnDXK3GuXnEcF6",
+                            PasswordHash = "$2a$11$7Pd4xdz2kDNYEoSEKbl/N.o8ivrvsDXMbhJLbJHUxroJUFoEto89y",
                             Role = 2,
-                            Salt = "$2a$11$NtkUL9IULmpjq8QsLSmo4O",
+                            Salt = "$2a$11$606pSgupi3.PwoNspnETy.",
                             Username = "worker2"
                         });
                 });
