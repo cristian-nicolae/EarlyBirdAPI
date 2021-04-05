@@ -25,5 +25,26 @@ namespace EarlyBird.BusinessLogic.Utils
                 Role = entity.Role
             };
         }
+
+        public static ViewReviewDto ToViewReviewDto(this ReviewEntity entity)
+        {
+            return new ViewReviewDto
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                Rating = entity.Rating,
+                Description = entity.Description
+            };
+        }
+
+        public static AddReviewDto ToAddReviewDto(this ReviewEntity entity)
+        {
+            return new AddReviewDto
+            {
+                Title = entity.Title,
+                Rating = entity.Rating,
+                Description = entity.Description
+            };
+        }
     }
 }

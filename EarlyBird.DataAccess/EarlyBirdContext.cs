@@ -37,12 +37,6 @@ namespace EarlyBird.DataAccess
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<OfferEntity>()
-                .HasOne<LocationEntity>(o => o.Location)
-                .WithMany(l => l.Offers)
-                .HasForeignKey(o => o.LocationId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<ReviewEntity>()
                  .HasOne<UserEntity>(r => r.Receiver)
                  .WithMany(u => u.ReviewsReceived)
