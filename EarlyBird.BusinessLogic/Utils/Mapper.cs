@@ -25,5 +25,6 @@ namespace EarlyBird.BusinessLogic.Utils
                 Role = entity.Role
             };
         }
+        
     }
 }
