@@ -31,6 +31,8 @@ namespace EarlyBird.BusinessLogic.Utils
             return new ViewReviewDto
             {
                 Id = entity.Id,
+                ReceiverId = entity.ReceiverId,
+                SenderId = entity.SenderId,
                 Title = entity.Title,
                 Rating = entity.Rating,
                 Description = entity.Description
@@ -44,6 +46,16 @@ namespace EarlyBird.BusinessLogic.Utils
                 Title = entity.Title,
                 Rating = entity.Rating,
                 Description = entity.Description
+            };
+        }
+
+        public static ReviewEntity ToReviewEntity(this UpdateReviewDto updateDto)
+        {
+            return new ReviewEntity
+            {
+                Title = updateDto.Title,
+                Rating = updateDto.Rating,
+                Description = updateDto.Description
             };
         }
     }

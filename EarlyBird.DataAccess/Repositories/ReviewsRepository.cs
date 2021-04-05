@@ -38,19 +38,15 @@ namespace EarlyBird.API
             return context.Reviews.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<ReviewEntity> GetReviewsForReceiver()
+        public IEnumerable<ReviewEntity> GetReviewsForReceiver(Guid receiverId)
         {
-            return context.Reviews.ToList();
+            return context.Reviews.Where(r => r.ReceiverId == receiverId).ToList();
         }
 
         public bool Update(int id, ReviewEntity reviewEntity)
         {
-            var oldReview = GetById(id);
-            if (oldReview == null)
-                return false;
-            oldReview.Title = reviewEntity.Title;
-            oldReview.Rating = reviewEntity.Rating;
-            oldReview.Description = reviewEntity.Description;
+
+            context.Update(reviewEntity);
             return context.SaveChanges() > 0;
         }
     }

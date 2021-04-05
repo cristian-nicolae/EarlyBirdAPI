@@ -11,7 +11,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
     {
         ReviewEntity GetById(int id);
         IEnumerable<ReviewEntity> GetAll();
-        IEnumerable<ReviewEntity> GetReviewsForReceiver();
+        IEnumerable<ReviewEntity> GetReviewsForReceiver(Guid receiverId);
         ReviewEntity Add(ReviewEntity reviewEntity);
         bool Delete(ReviewEntity reviewEntity);
         bool Update(int id, ReviewEntity reviewEntity);

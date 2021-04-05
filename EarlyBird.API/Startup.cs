@@ -92,6 +92,7 @@ namespace EarlyBird.API
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
         }
 
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)

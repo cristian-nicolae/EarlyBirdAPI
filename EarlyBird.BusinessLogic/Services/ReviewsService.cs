@@ -23,6 +23,8 @@ namespace EarlyBird.BusinessLogic.Services
         {
             ReviewEntity reviewEntity = new ReviewEntity
             {
+                ReceiverId = addReviewDto.ReceiverId,
+                SenderId = addReviewDto.SenderId,
                 Title = addReviewDto.Title,
                 Rating = addReviewDto.Rating,
                 Description = addReviewDto.Description
@@ -38,10 +40,20 @@ namespace EarlyBird.BusinessLogic.Services
                 throw new ReviewNotFoundException();
             return reviewsRepository.Delete(reviewEntity);
         }
-
-        public IEnumerable<ViewReviewDto> GetReviewsForReceiver()
+        public bool Update(int id, UpdateReviewDto updateReviewDto)
         {
-            return reviewsRepository.GetReviewsForReceiver().Select(x => x.ToViewReviewDto());
+            var reviewEntity = reviewsRepository.GetById(id);
+            if (reviewEntity == null)
+                throw new ReviewNotFoundException();
+            reviewEntity.Title = updateReviewDto.Title ?? reviewEntity.Title;
+            reviewEntity.Rating = updateReviewDto.Rating ==  0 ? reviewEntity.Rating : updateReviewDto.Rating;
+            reviewEntity.Description = updateReviewDto.Description ?? reviewEntity.Description;
+            return reviewsRepository.Update(id, reviewEntity);
+        }
+
+        public IEnumerable<ViewReviewDto> GetReviewsForReceiver(Guid receiverId)
+        {
+            return reviewsRepository.GetReviewsForReceiver(receiverId).Select(x => x.ToViewReviewDto());
         }
 
         public ViewReviewDto GetById(int id)
@@ -49,8 +61,18 @@ namespace EarlyBird.BusinessLogic.Services
             return reviewsRepository.GetById(id).ToViewReviewDto();
         }
 
+        public Guid GetSenderId(int reviewId)
+        {
+            return reviewsRepository.GetById(reviewId).SenderId;
+        }
+
+        public IEnumerable<ViewReviewDto> GetAll()
+        {
+            return reviewsRepository.GetAll().Select(x => x.ToViewReviewDto()).ToList();
+        }
+
         [Serializable]
-        private class ReviewNotFoundException : Exception
+        public class ReviewNotFoundException : Exception
         {
             public ReviewNotFoundException()
             {
