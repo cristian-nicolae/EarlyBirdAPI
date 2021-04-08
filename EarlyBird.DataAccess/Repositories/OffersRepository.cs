@@ -10,34 +10,45 @@ namespace EarlyBird.DataAccess.Repositories
 {
     public class OffersRepository : IOffersRepository
     {
+        private readonly EarlyBirdContext context;
+
+        public OffersRepository(EarlyBirdContext context)
+        {
+            this.context = context;
+        }
+
         public OfferEntity Add(OfferEntity offerEntity)
         {
-            throw new NotImplementedException();
+            context.Offers.Add(offerEntity);
+            context.SaveChanges();
+            return offerEntity;
         }
 
         public bool Delete(OfferEntity offerEntity)
         {
-            throw new NotImplementedException();
+            context.Offers.Remove(offerEntity);
+            return context.SaveChanges() > 0;
         }
 
-        public IEnumerable<OfferEntity> GetAllAvailableOffers()
+        public IEnumerable<OfferEntity> GetAllByStatus(OfferStatus offerStatus)
         {
-            throw new NotImplementedException();
+            return context.Offers.Where(x => x.Status == offerStatus).ToList();
         }
 
         public OfferEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Offers.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<OfferEntity> GetPublisherOffers(Guid publisherId)
         {
-            throw new NotImplementedException();
+             return context.Offers.Where(x => x.PublisherId == publisherId).ToList();
         }
 
         public bool Update(int id, OfferEntity offerEntity)
         {
-            throw new NotImplementedException();
+            context.Update<OfferEntity>(offerEntity);
+            return context.SaveChanges() > 0;
         }
     }
 }

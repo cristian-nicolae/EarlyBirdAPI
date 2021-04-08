@@ -8,7 +8,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
     public interface IOffersRepository
     {
         OfferEntity GetById(int id);
-        IEnumerable<OfferEntity> GetAllAvailableOffers();
+        IEnumerable<OfferEntity> GetAllByStatus(OfferStatus offerStatus);
         IEnumerable<OfferEntity> GetPublisherOffers(Guid publisherId);
         OfferEntity Add(OfferEntity offerEntity);
         bool Delete(OfferEntity offerEntity);
