@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EarlyBird.BusinessLogic.DTOs
 {
@@ -15,6 +16,8 @@ namespace EarlyBird.BusinessLogic.DTOs
         public string Description { get; set; }
 
         public double Cost { get; set; }
+        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
 
         public OfferStatus Status { get; set; }
 

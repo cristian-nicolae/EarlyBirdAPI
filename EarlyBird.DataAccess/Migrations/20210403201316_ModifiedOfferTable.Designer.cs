@@ -3,14 +3,16 @@ using System;
 using EarlyBird.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EarlyBird.DataAccess.Migrations
 {
     [DbContext(typeof(EarlyBirdContext))]
-    partial class EarlyBirdContextModelSnapshot : ModelSnapshot
+    [Migration("20210403201316_ModifiedOfferTable")]
+    partial class ModifiedOfferTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -574,7 +576,7 @@ namespace EarlyBird.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("ReceiverId")
                         .HasColumnType("TEXT");
@@ -672,41 +674,41 @@ namespace EarlyBird.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("07d94746-c113-4de6-a0bf-8c4789b51c67"),
-                            PasswordHash = "$2a$11$TcVYkTTnuHcJARsrLpOmROblJoV5FCdFGn.ylZ19EPj4zZPrzPw3W",
+                            PasswordHash = "$2a$11$Y3TwyxjOff8KkDELZkcvUuIK9N3dwGy8nLbOpIaqQoKOUDV8XtX1K",
                             Role = 1,
-                            Salt = "$2a$11$F6X3YwHtczP4LRgecwtDY.",
+                            Salt = "$2a$11$6OO1vXDH3o6DeTB9rNXdCO",
                             Username = "admin"
                         },
                         new
                         {
                             Id = new Guid("6ac15295-fffe-49a8-aaaf-cca3255e9bb0"),
-                            PasswordHash = "$2a$11$qWK8rykZg27nfkOSVAvLZOwsiOntydd.NCazCfrCwwvq7iFAv/N2K",
+                            PasswordHash = "$2a$11$/LwHZDV1qRyDlCwAnzlvZOtVQPx1zRqojmJYijyAEGXORKHRcu2TO",
                             Role = 2,
-                            Salt = "$2a$11$ocYI2JYp5hjRbZLntIOCIu",
+                            Salt = "$2a$11$4vWTdssde2QPr2bqmQ6Uve",
                             Username = "worker"
                         },
                         new
                         {
                             Id = new Guid("3a779cd5-acf9-44be-b1c9-342f5edc88cb"),
-                            PasswordHash = "$2a$11$JFsZ63/TwdV3pjBXo0aV9ufp9atbYuLY8cIBpG0WLzmks1fFaQ6d.",
+                            PasswordHash = "$2a$11$pVdyF7M15cHS0lyQD4iaiO8AoQRu2FmXXxvg2B6RKUGADY3wC4uCu",
                             Role = 3,
-                            Salt = "$2a$11$H80ce1TIj2dEnj9swZUCKe",
+                            Salt = "$2a$11$UuhXESppHMNu9/JLcMEIau",
                             Username = "publisher"
                         },
                         new
                         {
                             Id = new Guid("1545516d-abe8-4597-96a4-7998e8c51c79"),
-                            PasswordHash = "$2a$11$4new5c0mPekNuBwfdyKH3.r0UCsOVKDgRhxGUAS.9e5gkQ.4w7Y.G",
+                            PasswordHash = "$2a$11$RmxnGhPDmM/9NmdqEpBP8ejqZHBO90aB7bH2L5bkAItOM8ks6y1ca",
                             Role = 3,
-                            Salt = "$2a$11$suO8P3XbnOdyaVonoURQL.",
+                            Salt = "$2a$11$.5kX8/.ftx1tpWlR.4tGie",
                             Username = "publisher2"
                         },
                         new
                         {
                             Id = new Guid("d935c8e9-ab96-4ae9-a7b3-6c6e6ec384c5"),
-                            PasswordHash = "$2a$11$qAk7J.q4tftV271qZR4wf.8FIFx/mej1DMAY/A3c1XtCRVXwEcFpe",
+                            PasswordHash = "$2a$11$aim51HfVubD8MdXaemPNcObaP3oD.blDsmcC35og9qSy2/wnvMq8a",
                             Role = 2,
-                            Salt = "$2a$11$J85Sl.Ggda0eKvefnFZX8.",
+                            Salt = "$2a$11$re.LNiiVHMhIqsTPhXXZGu",
                             Username = "worker2"
                         });
                 });

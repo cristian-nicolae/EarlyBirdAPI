@@ -77,6 +77,11 @@ namespace EarlyBird.BusinessLogic.Services
             return verified ? tokenService.GenerateAccessToken(user.ToDto()) : null;
         }
 
+        public bool UserExists(Guid userId)
+        {
+            return usersRepository.GetById(userId) != null;
+        }
+
 
         #region exceptions       
 
