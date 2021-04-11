@@ -39,7 +39,7 @@ namespace EarlyBird.BusinessLogic.Utils
             return new AddCategoryDto
             {
                 Name = entity.Name
-            }
+            };
         }
         public static ViewReviewDto ToViewReviewDto(this ReviewEntity entity)
         {

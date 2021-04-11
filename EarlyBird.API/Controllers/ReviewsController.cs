@@ -52,10 +52,10 @@ namespace EarlyBird.API.Controllers
         [Route("{id}")]
         public IActionResult DeleteReview([FromRoute] int id)
         {
-            if (!claimIdMatches(reviewsService.GetSenderId(id)) && !isUserAdmin())
-                return Forbid();
             try
             {
+                if (!claimIdMatches(reviewsService.GetSenderId(id)) && !isUserAdmin())
+                    return Forbid();
                 if (reviewsService.Delete(id))
                     return Ok();
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -70,10 +70,10 @@ namespace EarlyBird.API.Controllers
         [Route("{id}")]
         public IActionResult UpdateReview([FromRoute] int id, [FromBody] UpdateReviewDto updateReviewDto)
         {
-            if (!claimIdMatches(reviewsService.GetSenderId(id)) && !isUserAdmin())
-                return Forbid();
             try
             {
+                if (!claimIdMatches(reviewsService.GetSenderId(id)) && !isUserAdmin())
+                    return Forbid();
                 if (reviewsService.Update(id, updateReviewDto))
                     return Ok();
                 return StatusCode(StatusCodes.Status500InternalServerError);

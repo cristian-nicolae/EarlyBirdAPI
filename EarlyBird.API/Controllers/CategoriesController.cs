@@ -37,7 +37,7 @@ namespace EarlyBird.API.Controllers
             var category = categoriesService.GetById(categoryId);
             if (category == null)
                 return NotFound();
-            return Ok();
+            return Ok(category);
         }
 
         [HttpPost]
