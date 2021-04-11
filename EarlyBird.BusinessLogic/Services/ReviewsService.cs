@@ -58,12 +58,15 @@ namespace EarlyBird.BusinessLogic.Services
 
         public ViewReviewDto GetById(int id)
         {
-            return reviewsRepository.GetById(id).ToViewReviewDto();
+            return reviewsRepository.GetById(id)?.ToViewReviewDto();
         }
 
         public Guid GetSenderId(int reviewId)
         {
-            return reviewsRepository.GetById(reviewId).SenderId;
+            var review = reviewsRepository.GetById(reviewId);
+            if (review == null)
+                throw new ReviewNotFoundException();
+            return review.SenderId;
         }
 
         public IEnumerable<ViewReviewDto> GetAll()

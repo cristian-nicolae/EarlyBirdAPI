@@ -38,6 +38,7 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.All)]
         public IActionResult GetAllByStatus([FromQuery] OfferStatus offerStatus)
         {
+            //TODO get all
             var offers = offersService.GetAllByStatus(offerStatus);
             if (offers == null) return NotFound();
             return Ok(offers);
@@ -47,6 +48,7 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult AddOffer([FromBody] AddOfferDto addOfferDto)
         {
+            //TODO resolve unhandeled exceptions with accepter id
             addOfferDto.PublisherId = returnLoggedUserId();
             var result = offersService.Add(addOfferDto);
             var path = "api/offers/" + result.Id;
@@ -59,6 +61,7 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult DeleteOffer([FromRoute] int offerId)
         {
+            // TODO not working when id doesnt exist
             if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
             return offersService.Delete(offerId) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
         }
@@ -68,6 +71,8 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult UpdateOffer([FromRoute] int offerId, [FromBody] UpdateOfferDto offer)
         {
+            // TODO update not working, it creates new entities
+            // TODO not working when id doesnt exist
             if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
             offer.PublisherId = returnLoggedUserId();
             return offersService.Update(offerId, offer) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
