@@ -14,5 +14,7 @@ namespace EarlyBird.BusinessLogic.Services.Interfaces
         string Register(RegisterUserDto registerUserDto);
         string Authenticate(string username, string password);
 
+        bool UserExists(Guid userId);
+
     }
 }

@@ -18,6 +18,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 
 namespace EarlyBird.API
 {
@@ -44,6 +45,13 @@ namespace EarlyBird.API
             services.AddRepositories();
             services.AddServices();
 
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            
+            services.AddSingleton(mapper);
 
             services.AddSwagger();
         }
@@ -64,7 +72,7 @@ namespace EarlyBird.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -93,6 +101,8 @@ namespace EarlyBird.API
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<IOffersService, OffersService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
         }
 
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
@@ -107,7 +117,7 @@ namespace EarlyBird.API
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = false,
-                        ValidateAudience =  false,
+                        ValidateAudience = false,
                         ValidateLifetime = false,
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["AuthorizationSettings:Issuer"],

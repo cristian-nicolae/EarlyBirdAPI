@@ -1,42 +1,53 @@
-﻿using EarlyBird.DataAccess.Entities;
+﻿using EarlyBird.DataAccess;
+using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EarlyBird.API
 {
     public class ReviewsRepository : IReviewsRepository
     {
+        private readonly EarlyBirdContext context;
+
+        public ReviewsRepository(EarlyBirdContext context)
+        {
+            this.context = context;
+        }
         public ReviewEntity Add(ReviewEntity reviewEntity)
         {
-            throw new NotImplementedException();
+            context.Reviews.Add(reviewEntity);
+            context.SaveChanges();
+            return reviewEntity;
         }
 
         public bool Delete(ReviewEntity reviewEntity)
         {
-            throw new NotImplementedException();
+            context.Reviews.Remove(reviewEntity);
+            return context.SaveChanges() > 0;
         }
 
         public IEnumerable<ReviewEntity> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Reviews.ToList();
         }
 
         public ReviewEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            return context.Reviews.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<ReviewEntity> GetReviewsForReceiver(Guid receiverId)
         {
-            throw new NotImplementedException();
+            return context.Reviews.Where(r => r.ReceiverId == receiverId).ToList();
         }
 
         public bool Update(int id, ReviewEntity reviewEntity)
         {
-            throw new NotImplementedException();
+
+            context.Update(reviewEntity);
+            return context.SaveChanges() > 0;
         }
     }
 }
