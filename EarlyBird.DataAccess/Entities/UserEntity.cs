@@ -9,10 +9,21 @@ namespace EarlyBird.DataAccess.Entities
     {
         public Guid Id { get; set; }
         [Required]
+        [MaxLength(200)]
         public string Username { get; set; }
+
         [Required]
+        [MaxLength(200)]
+        public string Firstname { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        public string Lastname { get; set; }
+        [Required]
+        [MaxLength(200)]
         public string PasswordHash { get; set; }
         [Required]
+        [MaxLength(200)]
         public string Salt { get; set; }
         [Required]
         public Roles Role { get; set; }
