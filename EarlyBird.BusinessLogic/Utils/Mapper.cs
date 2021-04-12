@@ -1,4 +1,4 @@
-﻿using EarlyBird.BusinessLogic.DTOs;
+using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.DataAccess.Entities;
 
 
@@ -26,6 +26,21 @@ namespace EarlyBird.BusinessLogic.Utils
             };
         }
 
+        public static ViewCategoryDto ToViewCategoryDto(this CategoryEntity entity)
+        {
+            return new ViewCategoryDto
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
+        public static AddCategoryDto ToAddCategoryDto(this CategoryEntity entity)
+        {
+            return new AddCategoryDto
+            {
+                Name = entity.Name
+            };
+        }
         public static ViewReviewDto ToViewReviewDto(this ReviewEntity entity)
         {
             return new ViewReviewDto

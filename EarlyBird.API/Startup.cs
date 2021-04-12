@@ -100,6 +100,7 @@ namespace EarlyBird.API
         {
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IOffersService, OffersService>();
             services.AddScoped<IReviewsService, ReviewsService>();
         }
