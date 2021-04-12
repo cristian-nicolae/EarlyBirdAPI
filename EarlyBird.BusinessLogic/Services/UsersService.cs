@@ -2,13 +2,10 @@
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess.Entities;
-using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
-using EarlyBird.DataAccess.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 namespace EarlyBird.BusinessLogic.Services
 {
@@ -59,6 +56,8 @@ namespace EarlyBird.BusinessLogic.Services
             {
                 Id = Guid.NewGuid(),
                 Username = registerUserDto.Username,
+                Firstname = registerUserDto.Firstname,
+                Lastname = registerUserDto.Lastname,
                 Salt = salt,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerUserDto.Password + salt),
                 Role = registerUserDto.Role

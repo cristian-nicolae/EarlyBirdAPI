@@ -93,6 +93,8 @@ namespace EarlyBird.DataAccess
             {
                 Id = Guid.Parse("07d94746-c113-4de6-a0bf-8c4789b51c67"),
                 Username = "admin",
+                Firstname = "Cristian",
+                Lastname = "Nicolae",
                 Salt = salt1,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
                 Role = Roles.Admin
@@ -103,6 +105,8 @@ namespace EarlyBird.DataAccess
             {
                 Id = Guid.Parse("6ac15295-fffe-49a8-aaaf-cca3255e9bb0"),
                 Username = "worker",
+                Firstname = "Andrei",
+                Lastname = "Varga",
                 Salt = salt2,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt2),
                 Role = Roles.Worker
@@ -113,6 +117,8 @@ namespace EarlyBird.DataAccess
             {
                 Id = Guid.Parse("3a779cd5-acf9-44be-b1c9-342f5edc88cb"),
                 Username = "publisher",
+                Firstname = "Andrei-Vlad",
+                Lastname = "Popica",
                 Salt = salt3,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt3),
                 Role = Roles.Publisher
@@ -122,6 +128,8 @@ namespace EarlyBird.DataAccess
             {
                 Id = Guid.Parse("1545516d-abe8-4597-96a4-7998e8c51c79"),
                 Username = "publisher2",
+                Firstname = "Marius-Cristian",
+                Lastname = "Socaci",
                 Salt = salt4,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("publisher" + salt4),
                 Role = Roles.Publisher
@@ -131,6 +139,8 @@ namespace EarlyBird.DataAccess
             {
                 Id = Guid.Parse("d935c8e9-ab96-4ae9-a7b3-6c6e6ec384c5"),
                 Username = "worker2",
+                Firstname = "Flaviu",
+                Lastname = "Raita",
                 Salt = salt5,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("worker" + salt5),
                 Role = Roles.Worker
