@@ -24,17 +24,22 @@ namespace EarlyBird.BusinessLogic.Services
         }
         public IEnumerable<ViewUserDto> GetAll()
         {
-            return usersRepository.GetAll().Select(x => x.ToViewUserDto());
+            return usersRepository.GetAll().Select(x => x.ToViewUserDto(usersRepository.GetAverageRating(x.Id)));
         }
 
         public ViewUserDto GetById(Guid id)
         {
-            return usersRepository.GetById(id)?.ToViewUserDto();
+            double avg = usersRepository.GetAverageRating(id);
+            return usersRepository.GetById(id)?.ToViewUserDto(avg);
         }
 
         public ViewUserDto GetByUsername(string username)
         {
-            return usersRepository.GetByUsername(username)?.ToViewUserDto();
+            var user = usersRepository.GetByUsername(username);
+            if (user == null)
+                return null;
+            double avg = usersRepository.GetAverageRating(user.Id);
+            return user.ToViewUserDto(avg);
         }
 
         public bool Delete(Guid id)
@@ -43,6 +48,22 @@ namespace EarlyBird.BusinessLogic.Services
             if (user == null)
                 throw new UserNotFoundException();
             return usersRepository.Delete(user);
+        }
+
+        public bool Update(Guid id, UpdateUserDto updateUserDto)
+        {
+            var user = usersRepository.GetById(id);
+            if (user == null)
+                throw new UserNotFoundException();
+            user.Firstname = updateUserDto.Firstname ?? user.Firstname;
+            user.Lastname = updateUserDto.Lastname ?? user.Lastname;
+            if (updateUserDto.Password != null)
+            {
+                var salt = BCrypt.Net.BCrypt.GenerateSalt();
+                user.Salt = salt;
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updateUserDto.Password + salt);
+            }
+            return usersRepository.Update(id, user);
         }
 
         public string Register(RegisterUserDto registerUserDto)

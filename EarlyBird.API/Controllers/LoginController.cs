@@ -1,5 +1,4 @@
 ﻿using EarlyBird.API.Models;
-using EarlyBird.BusinessLogic.Services;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +19,7 @@ namespace EarlyBird.API.Controllers
         public IActionResult Login([FromBody] LoginRequest credentials)
         {
             var token = usersService.Authenticate(credentials.Username, credentials.Password);
-            if (token == null) return Forbid();
+            if (token == null) return Unauthorized();
             return Ok(new LoginResponse { Token = token });
         }
     }

@@ -21,7 +21,8 @@ namespace EarlyBird.BusinessLogic.DTOs
         [MinLength(4)]
         [MaxLength(200)]
         public string Password { get; set; }
-
+        [Required]
+        [Range(2,3)]
         public Roles Role { get; set; }
     }
 }

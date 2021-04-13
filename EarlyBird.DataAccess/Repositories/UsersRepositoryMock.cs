@@ -36,6 +36,14 @@ namespace EarlyBird.DataAccess.Repositories
             return _users.Remove(user);
         }
 
+        public bool Update(Guid id, UserEntity userEntity)
+        {
+            throw new NotImplementedException();
+        }
 
+        public double GetAverageRating(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
