@@ -71,7 +71,7 @@ namespace EarlyBird.API.Controllers
                 return BadRequest(ModelState.Values);
             try
             {
-                if (!claimIdMatches(usersService.GetById(id).Id) && !isUserAdmin())
+                if (!claimIdMatches(id) && !isUserAdmin())
                     return Forbid();
                 if (usersService.Update(id, updateUserDto))
                     return Ok();
