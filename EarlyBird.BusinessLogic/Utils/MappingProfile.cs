@@ -1,7 +1,7 @@
 using AutoMapper;
 using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.DataAccess.Entities;
-
+using EarlyBird.DataAccess.Utils;
 
 namespace EarlyBird.BusinessLogic.Utils
 {
@@ -11,7 +11,7 @@ namespace EarlyBird.BusinessLogic.Utils
         {
             CreateMap<ViewUserDto, UserEntity>();
             CreateMap<UserEntity, ViewUserDto>();
-            
+
             CreateMap<OfferEntity, UpdateOfferDto>();
             CreateMap<OfferEntity, ViewOfferDto>();
             CreateMap<OfferEntity, AddOfferDto>();
@@ -23,9 +23,9 @@ namespace EarlyBird.BusinessLogic.Utils
             CreateMap<ViewOfferDto, OfferEntity>();
             CreateMap<ViewOfferDto, AddOfferDto>();
             CreateMap<ViewOfferDto, UpdateOfferDto>();
-            
+
             CreateMap<UpdateOfferDto, OfferEntity>();
-            
+
 
             CreateMap<ViewLocationDto, AddLocationDto>();
             CreateMap<ViewLocationDto, LocationEntity>();
@@ -33,8 +33,14 @@ namespace EarlyBird.BusinessLogic.Utils
             CreateMap<LocationEntity, ViewLocationDto>();
             CreateMap<AddLocationDto, ViewLocationDto>();
             CreateMap<AddLocationDto, LocationEntity>();
-            
 
+            CreateMap<OfferFilterAndSort, OfferFilterAndSortDAO>();
+
+            CreateMap<ViewCategoryDto, CategoryEntity>();
+            CreateMap<CategoryEntity, ViewCategoryDto>();
+
+            CreateMap<OfferCategoryEntity, ViewOfferCategoryDto>();
+            CreateMap<ViewOfferCategoryDto, OfferCategoryEntity>();
         }
     }
 }

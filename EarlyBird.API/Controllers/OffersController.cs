@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
 using EarlyBird.BusinessLogic.DTOs;
+using static EarlyBird.BusinessLogic.Services.OffersService;
+using EarlyBird.API.Models;
 
 namespace EarlyBird.API.Controllers
 {
@@ -29,26 +31,28 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.All)]
         public IActionResult GetById([FromRoute] int offerId)
         {
-            var offer = offersService.GetById(offerId);
-            if (offer == null) return NotFound();
-            return Ok(offer);
+            try
+            {
+                var offer = offersService.GetById(offerId);
+                return Ok(offer);
+            }
+            catch (OfferNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [Authorize(Policy = Policies.All)]
-        public IActionResult GetAllByStatus([FromQuery] OfferStatus offerStatus)
+        public IActionResult GetAllOffers([FromQuery] OfferFilterAndSort offerFilterQuery)
         {
-            //TODO get all
-            var offers = offersService.GetAllByStatus(offerStatus);
-            if (offers == null) return NotFound();
-            return Ok(offers);
+            return Ok(offersService.GetAllOffers(offerFilterQuery, HttpContext.User.Identity as ClaimsIdentity));
         }
 
         [HttpPost]
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult AddOffer([FromBody] AddOfferDto addOfferDto)
         {
-            //TODO resolve unhandeled exceptions with accepter id
             addOfferDto.PublisherId = returnLoggedUserId();
             var result = offersService.Add(addOfferDto);
             var path = "api/offers/" + result.Id;
@@ -61,9 +65,15 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult DeleteOffer([FromRoute] int offerId)
         {
-            // TODO not working when id doesnt exist
-            if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
-            return offersService.Delete(offerId) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            try
+            {
+                if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
+                return offersService.Delete(offerId) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (OfferNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut]
@@ -71,11 +81,17 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult UpdateOffer([FromRoute] int offerId, [FromBody] UpdateOfferDto offer)
         {
-            // TODO update not working, it creates new entities
-            // TODO not working when id doesnt exist
-            if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
-            offer.PublisherId = returnLoggedUserId();
-            return offersService.Update(offerId, offer) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            try
+            {
+                if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();
+                offer.PublisherId = returnLoggedUserId();
+                return offersService.Update(offerId, offer) ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (OfferNotFoundException)
+            {
+                return NotFound();
+            }
+
         }
 
         private bool claimIdMatches(Guid userId)

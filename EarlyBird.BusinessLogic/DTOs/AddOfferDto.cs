@@ -23,7 +23,5 @@ namespace EarlyBird.BusinessLogic.DTOs
 
         public string Notes { get; set; }
 
-        public Guid? AccepterId { get; set; }
-
     }
 }
