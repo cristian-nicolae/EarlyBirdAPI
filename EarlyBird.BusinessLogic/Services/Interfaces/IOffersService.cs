@@ -1,7 +1,9 @@
 
+
 using EarlyBird.BusinessLogic.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace EarlyBird.BusinessLogic.Services.Interfaces
 {
@@ -10,7 +12,7 @@ namespace EarlyBird.BusinessLogic.Services.Interfaces
 
         ViewOfferDto GetById(int id);
 
-        IEnumerable<ViewOfferDto> GetAllByStatus(OfferStatus offerStatus);
+        IEnumerable<ViewOfferDto> GetAllOffers(OfferFilterAndSort offerFilterQuery, ClaimsIdentity identity = null);
 
         ViewOfferDto Add(AddOfferDto offerEntity);
 

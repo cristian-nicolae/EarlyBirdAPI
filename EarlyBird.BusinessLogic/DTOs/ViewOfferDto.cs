@@ -35,5 +35,7 @@ namespace EarlyBird.BusinessLogic.DTOs
 
         public Guid? AccepterId { get; set; }
 
+        public IEnumerable<ViewOfferCategoryDto> Categories { get; set; }
+
     }
 }
