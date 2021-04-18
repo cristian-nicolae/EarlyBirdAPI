@@ -44,13 +44,11 @@ namespace EarlyBird.API
             services.AddRepositories();
             services.AddServices();
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-            IMapper mapper = mapperConfig.CreateMapper();
             
-            services.AddSingleton(mapper);
+            services.AddScoped(provider => new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile(provider.GetService<IUsersRepository>()));
+            }).CreateMapper());
 
             services.AddSwagger();
         }

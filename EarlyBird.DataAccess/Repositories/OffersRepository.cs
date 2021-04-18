@@ -40,6 +40,7 @@ namespace EarlyBird.DataAccess.Repositories
         public IEnumerable<OfferEntity> GetAllOffers(OfferFilterAndSortDAO query)
         {
             var offerQuery = context.Offers
+                                    .Include(x=>x.Publisher)
                                     .Include(x => x.Location)
                                     .Include(x => x.Categories)
                                     .ThenInclude(x => x.Category)

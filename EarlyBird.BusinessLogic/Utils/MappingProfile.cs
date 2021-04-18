@@ -1,16 +1,20 @@
 using AutoMapper;
 using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.DataAccess.Entities;
+using EarlyBird.DataAccess.Repositories.Interfaces;
 using EarlyBird.DataAccess.Utils;
 
 namespace EarlyBird.BusinessLogic.Utils
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile()
+        public MappingProfile(IUsersRepository usersRepository)
         {
             CreateMap<ViewUserDto, UserEntity>();
-            CreateMap<UserEntity, ViewUserDto>();
+            CreateMap<UserEntity, ViewUserDto>()
+                .ForMember(
+                dest=> dest.AvgRating,
+                opt=> opt.MapFrom(src=> usersRepository.GetAverageRating(src.Id)));
 
             CreateMap<OfferEntity, UpdateOfferDto>();
             CreateMap<OfferEntity, ViewOfferDto>();
