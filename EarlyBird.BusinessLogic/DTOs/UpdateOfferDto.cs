@@ -7,8 +7,10 @@ namespace EarlyBird.BusinessLogic.DTOs
 {
     public class UpdateOfferDto
     {
+        [MaxLength(100)]
         public string Title { get; set; }
 
+        [MaxLength(1000)]
         public string Description { get; set; }
 
         public double Cost { get; set; }
@@ -19,9 +21,11 @@ namespace EarlyBird.BusinessLogic.DTOs
 
         public AddLocationDto Location { get; set; }
 
+        [MaxLength(500)]
         public string Prerequisites { get; set; }
 
+        [MaxLength(500)]
         public string Notes { get; set; }
-    
+
     }
 }
