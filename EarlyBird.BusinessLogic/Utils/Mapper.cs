@@ -23,7 +23,6 @@ namespace EarlyBird.BusinessLogic.Utils
                 Id = entity.Id,
                 Firstname = entity.Firstname,
                 Lastname = entity.Lastname,
-                Username = entity.Username,
                 AvgRating = avgRating,
                 Role = entity.Role
             };
