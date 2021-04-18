@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EarlyBird.DataAccess.Utils
 {
@@ -14,9 +15,9 @@ namespace EarlyBird.DataAccess.Utils
 
         public int? MinCost { get; set; }
 
-        public int? CategoryId { get; set; }
+        public List<int> CategoryIds { get; set; }
 
-        public string City { get; set; }
+        public List<string> Cities { get; set; }
 
         public OfferStatus? OfferStatus { get; set; }
 

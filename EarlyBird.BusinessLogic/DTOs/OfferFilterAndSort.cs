@@ -1,4 +1,5 @@
-
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace EarlyBird.BusinessLogic.DTOs
 {
@@ -13,10 +14,10 @@ namespace EarlyBird.BusinessLogic.DTOs
         public int? MaxCost { get; set; }
 
         public int? MinCost { get; set; }
-
-        public int? CategoryId { get; set; }
-
-        public string City { get; set; }
+        [FromQuery(Name = "categoryIds[]")]
+        public List<int> CategoryIds { get; set; }
+        [FromQuery(Name = "cities[]")]
+        public List<string> Cities { get; set; }
 
         public OfferStatus? OfferStatus { get; set; }
 

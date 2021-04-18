@@ -64,12 +64,12 @@ namespace EarlyBird.DataAccess.Repositories
             if (query.MinCost.HasValue)
                 offerQuery = offerQuery.Where(x => x.Cost >= query.MinCost);
 
-            if (query.CategoryId.HasValue)
+            if (query.CategoryIds.Any())
                 offerQuery = offerQuery.Where(x => x.Categories
-                .Any(x => x.CategoryId == query.CategoryId));
+                .Any(x => query.CategoryIds.Contains(x.CategoryId)));
 
-            if (!String.IsNullOrWhiteSpace(query.City))
-                offerQuery = offerQuery.Where(x => x.Location.CityName.Contains(query.City));
+            if (query.Cities.Any())
+                offerQuery = offerQuery.Where(x => query.Cities.Contains(x.Location.CityName));
 
             if (query.OfferStatus.HasValue)
                 offerQuery = offerQuery.Where(x => x.Status == query.OfferStatus);
