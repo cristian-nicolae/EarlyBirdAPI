@@ -34,7 +34,7 @@ namespace EarlyBird.DataAccess.Repositories
 
         public OfferEntity GetById(int id)
         {
-            return context.Offers.Include(x => x.Location).FirstOrDefault(x => x.Id == id);
+            return context.Offers.Include(x => x.Location).Include(x => x.Publisher).FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<OfferEntity> GetAllOffers(OfferFilterAndSortDAO query)

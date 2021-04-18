@@ -86,7 +86,10 @@ namespace EarlyBird.BusinessLogic.Services
             offerEntity.Prerequisites = updateOfferEntity.Prerequisites ?? offerEntity.Prerequisites;
             offerEntity.Notes = updateOfferEntity.Notes ?? offerEntity.Notes;
             offerEntity.Status = updateOfferEntity.Status == 0 ? offerEntity.Status : updateOfferEntity.Status;
-            offerEntity.Location = updateOfferEntity.Status == 0 ? offerEntity.Location : mapper.Map<LocationEntity>(updateOfferEntity.Location);
+
+            if (updateOfferEntity.Location != null)
+                offerEntity.Location = mapper.Map<LocationEntity>(updateOfferEntity.Location);
+
             return offersRepository.Update(id, offerEntity);
         }
 
