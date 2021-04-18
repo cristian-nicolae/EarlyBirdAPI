@@ -1,4 +1,5 @@
 ﻿using EarlyBird.API.Utils;
+using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.DataAccess.Utils;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
+using static EarlyBird.BusinessLogic.Services.UsersService;
 
 namespace EarlyBird.API.Controllers
 {
@@ -35,8 +37,6 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.All)]
         public IActionResult GetById([FromRoute] Guid userId)
         {
-            if (!claimIdMatches(userId) && !isUserAdmin()) return Forbid();
-
             var user = usersService.GetById(userId);
             if (user == null)
                 return NotFound();
@@ -57,6 +57,27 @@ namespace EarlyBird.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
             catch (UsersService.UserNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("{id}")]
+        public IActionResult UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
+            try
+            {
+                if (!claimIdMatches(id) && !isUserAdmin())
+                    return Forbid();
+                if (usersService.Update(id, updateUserDto))
+                    return Ok();
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (UserNotFoundException)
             {
                 return NotFound();
             }

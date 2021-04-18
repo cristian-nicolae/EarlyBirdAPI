@@ -13,7 +13,7 @@ namespace EarlyBird.BusinessLogic.Services.Interfaces
         bool Delete(Guid id);
         string Register(RegisterUserDto registerUserDto);
         string Authenticate(string username, string password);
-
+        public bool Update(Guid id, UpdateUserDto updateUserDto);
         bool UserExists(Guid userId);
 
     }

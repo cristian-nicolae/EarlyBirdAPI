@@ -11,6 +11,8 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         UserEntity Add(UserEntity user);
         IEnumerable<UserEntity> GetAll();
         bool Delete(UserEntity user);
+        double GetAverageRating(Guid id);
+        bool Update(Guid id, UserEntity userEntity);
 
 
     }

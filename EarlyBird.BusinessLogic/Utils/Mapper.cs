@@ -16,12 +16,15 @@ namespace EarlyBird.BusinessLogic.Utils
             };
         }
 
-        public static ViewUserDto ToViewUserDto(this UserEntity entity)
+        public static ViewUserDto ToViewUserDto(this UserEntity entity, double avgRating)
         {
             return new ViewUserDto
             {
                 Id = entity.Id,
+                Firstname = entity.Firstname,
+                Lastname = entity.Lastname,
                 Username = entity.Username,
+                AvgRating = avgRating,
                 Role = entity.Role
             };
         }

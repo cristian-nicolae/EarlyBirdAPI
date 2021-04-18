@@ -1,5 +1,4 @@
-﻿using BCrypt.Net;
-using EarlyBird.DataAccess.Entities;
+﻿using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Utils;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
