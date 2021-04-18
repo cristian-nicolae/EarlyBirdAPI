@@ -17,7 +17,7 @@ namespace EarlyBird.DataAccess.Utils
 
         public List<int> CategoryIds { get; set; }
 
-        public List<string> Cities { get; set; }
+        public string City { get; set; }
 
         public OfferStatus? OfferStatus { get; set; }
 

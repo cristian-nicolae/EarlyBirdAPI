@@ -16,8 +16,7 @@ namespace EarlyBird.BusinessLogic.DTOs
         public int? MinCost { get; set; }
         [FromQuery(Name = "categoryIds[]")]
         public List<int> CategoryIds { get; set; }
-        [FromQuery(Name = "cities[]")]
-        public List<string> Cities { get; set; }
+        public string City { get; set; }
 
         public OfferStatus? OfferStatus { get; set; }
 
