@@ -1,8 +1,9 @@
+using AutoMapper;
+using EarlyBird.API.Utils;
 using EarlyBird.BusinessLogic.Services;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using EarlyBird.BusinessLogic.Utils;
 using EarlyBird.DataAccess;
-using EarlyBird.API.Utils;
 using EarlyBird.DataAccess.Repositories;
 using EarlyBird.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,9 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using AutoMapper;
 
 namespace EarlyBird.API
 {
@@ -39,7 +38,7 @@ namespace EarlyBird.API
             services.AddDbContextPool<EarlyBirdContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"), b => b.MigrationsAssembly("EarlyBird.DataAccess")));
 
             services.AddControllers();
-
+            services.AddCors();
             services.AddAuthServices(Configuration);
 
             services.AddRepositories();
@@ -65,11 +64,11 @@ namespace EarlyBird.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EarlyBird.API v1"));
             }
-
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000")); // This represents the policy.
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
