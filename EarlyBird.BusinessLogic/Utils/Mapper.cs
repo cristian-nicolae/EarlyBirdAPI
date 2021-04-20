@@ -11,6 +11,8 @@ namespace EarlyBird.BusinessLogic.Utils
             return new UserDto
             {
                 Id = entity.Id,
+                Firstname = entity.Firstname,
+                Lastname = entity.Lastname,
                 Username = entity.Username,
                 Role = entity.Role
             };

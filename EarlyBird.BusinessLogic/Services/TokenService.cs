@@ -29,6 +29,8 @@ namespace EarlyBird.BusinessLogic.Services
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim("userName", user.Username),
+                new Claim("firstName", user.Firstname),
+                new Claim("lastName", user.Lastname),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
