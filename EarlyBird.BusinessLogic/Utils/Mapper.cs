@@ -45,7 +45,7 @@ namespace EarlyBird.BusinessLogic.Utils
                 Name = entity.Name
             };
         }
-        public static ViewReviewDto ToViewReviewDto(this ReviewEntity entity)
+        public static ViewReviewDto ToViewReviewDto(this ReviewEntity entity, double avg = 0)
         {
             return new ViewReviewDto
             {
@@ -54,7 +54,8 @@ namespace EarlyBird.BusinessLogic.Utils
                 SenderId = entity.SenderId,
                 Title = entity.Title,
                 Rating = entity.Rating,
-                Description = entity.Description
+                Description = entity.Description,
+                Sender = entity.Sender?.ToViewUserDto(avg)
             };
         }
 
