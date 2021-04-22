@@ -7,6 +7,7 @@ namespace EarlyBird.BusinessLogic.DTOs
         public int Id { get; set; }
 
         public Guid SenderId { get; set; }
+        public ViewUserDto Sender { get; set; }
         public Guid ReceiverId { get; set; }
         public string Title { get; set; }
         public int Rating { get; set; }

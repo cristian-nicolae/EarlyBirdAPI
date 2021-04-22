@@ -4,6 +4,7 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EarlyBird.API
 {
@@ -40,7 +41,10 @@ namespace EarlyBird.API
 
         public IEnumerable<ReviewEntity> GetReviewsForReceiver(Guid receiverId)
         {
-            return context.Reviews.Where(r => r.ReceiverId == receiverId).ToList();
+            return context.Reviews
+                .Include(x => x.Sender)
+                .Where(r => r.ReceiverId == receiverId)
+                .ToList();
         }
 
         public bool Update(int id, ReviewEntity reviewEntity)
