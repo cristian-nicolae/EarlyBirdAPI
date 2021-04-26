@@ -23,7 +23,8 @@ namespace EarlyBird.API.Controllers
         {
             if (user.Role == Roles.Admin)
                 return Unauthorized();
-
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
             try
             {
                 var token = usersService.Register(user.ToRegisterUserDto());
@@ -31,7 +32,7 @@ namespace EarlyBird.API.Controllers
             }
             catch (UsersService.UserAlreadyExistingException)
             {
-                return BadRequest();
+                return Forbid();
             }
         }
     }
