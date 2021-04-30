@@ -6,19 +6,25 @@ namespace EarlyBird.BusinessLogic.Services
 {
     public class ConnectedUsersService: IConnectedUsersService
     {
-        private Dictionary<Guid, string> ConnectedUsers = new Dictionary<Guid, string>();
+        private Dictionary<Guid, List<string>> ConnectedUsers = new Dictionary<Guid, List<string>>();
         
         public void Add(Guid userId, string connectionId)
         {
-            ConnectedUsers.Add(userId, connectionId);
+            if (ConnectedUsers.ContainsKey(userId))
+                ConnectedUsers.GetValueOrDefault(userId).Add(connectionId);
+            else
+                ConnectedUsers.Add(userId, new List<string> { connectionId });
         }
 
-        public void Remove(Guid userId)
+        public void Remove(Guid userId, string connectionId)
         {
-            ConnectedUsers.Remove(userId);
+            var connections = ConnectedUsers.GetValueOrDefault(userId);
+            connections.Remove(connectionId);
+            if (connections.Count == 0)
+                ConnectedUsers.Remove(userId);
         }
 
-        public string GetConnectionId(Guid userId)
+        public List<string> GetConnectionIds(Guid userId)
         {
             if (!ConnectedUsers.ContainsKey(userId))
                 return null;

@@ -107,6 +107,7 @@ namespace EarlyBird.API
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IOffersService, OffersService>();
             services.AddScoped<IReviewsService, ReviewsService>();
+            services.AddSingleton<IConnectedUsersService, ConnectedUsersService>();
         }
 
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
