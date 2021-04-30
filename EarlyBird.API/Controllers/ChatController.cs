@@ -18,18 +18,15 @@ namespace EarlyBird.API.Controllers
         private readonly IHubContext<ChatHub> _chatHub;
         private readonly ITokenService _tokenService;
         private readonly IUsersService _usersService;
-        private readonly IConnectedUsersService _connectedUsersService;
 
 
         public ChatController(IHubContext<ChatHub> chatHub,
                                 ITokenService tokenService,
-                                IUsersService usersService,
-                                IConnectedUsersService connectedUsersService)
+                                IUsersService usersService)
         {
             _chatHub = chatHub;
             _tokenService = tokenService;
             _usersService = usersService;
-            _connectedUsersService = connectedUsersService;
         }
 
         [HttpPost("messages")]
@@ -38,9 +35,7 @@ namespace EarlyBird.API.Controllers
         {
             var user = GetCurrentUser();
             message.User = user.Firstname;
-            var connectionIds = _connectedUsersService.GetConnectionIds(user.Id);
-            await _chatHub.Clients.Client(connectionIds[0]).SendAsync("ReceiveMessage", message);
-            //await _chatHub.Clients.All.SendAsync("ReceiveMessage", message);
+            await _chatHub.Clients.User(user.Id.ToString()).SendAsync("ReceiveMessage", message);
         }
 
         #region private methods

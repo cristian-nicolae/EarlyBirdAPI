@@ -10,6 +10,7 @@ using EarlyBird.DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,7 @@ namespace EarlyBird.API
 
             services.AddSwagger();
             services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, UserIdProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,7 +109,6 @@ namespace EarlyBird.API
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IOffersService, OffersService>();
             services.AddScoped<IReviewsService, ReviewsService>();
-            services.AddSingleton<IConnectedUsersService, ConnectedUsersService>();
         }
 
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
