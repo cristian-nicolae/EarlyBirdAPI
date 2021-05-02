@@ -25,8 +25,4 @@
     <ProjectReference Include="..\EarlyBird.BusinessLogic\EarlyBird.BusinessLogic.csproj" />
     <ProjectReference Include="..\EarlyBird.DataAccess\EarlyBird.DataAccess.csproj" />
   </ItemGroup>
-  <Target Name="PrePublishTarget" AfterTargets="Publish">
-    <Exec Command="﻿dotnet ef database update --project ./EarlyBird.DataAccess/EarlyBird.DataAccess.csproj --startup-project ./EarlyBird.API/EarlyBird.API.csproj
-" />
-  </Target>
 </Project>
