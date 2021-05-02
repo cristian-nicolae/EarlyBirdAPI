@@ -106,6 +106,10 @@ namespace EarlyBird.API
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            string secret = configuration["AuthorizationSettings:Secret"];
+            if (env != "Development")
+                secret = Environment.GetEnvironmentVariable("AUTH_SECRET");
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -120,7 +124,7 @@ namespace EarlyBird.API
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["AuthorizationSettings:Issuer"],
                         ValidAudience = configuration["AuthorizationSettings:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthorizationSettings:Secret"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
                         ClockSkew = TimeSpan.Zero
                     };
                 });
