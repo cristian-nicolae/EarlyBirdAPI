@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace EarlyBird.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ChatController : ControllerBase
     {
         private readonly IHubContext<ChatHub> _chatHub;
@@ -33,9 +33,7 @@ namespace EarlyBird.API.Controllers
         [Authorize]
         public async Task Post(ChatMessage message)
         {
-            var user = GetCurrentUser();
-            message.User = user.Firstname;
-            await _chatHub.Clients.User(user.Id.ToString()).SendAsync("ReceiveMessage", message);
+            await _chatHub.Clients.User(message.User).SendAsync("ReceiveMessage", message);
         }
 
         #region private methods
