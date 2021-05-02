@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,7 +39,12 @@ namespace EarlyBird.API
         {
             services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
 
-            string dbEnvVar = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string dbEnvVar;
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                dbEnvVar = File.ReadAllText("DoNotUploadToGit.txt");
+            else
+                dbEnvVar = Environment.GetEnvironmentVariable("DATABASE_URL");
+
             //parse database URL. Format is postgres://<username>:<password>@<host>/<dbname>
             var uri = new Uri(dbEnvVar);
             var username = uri.UserInfo.Split(':')[0];
