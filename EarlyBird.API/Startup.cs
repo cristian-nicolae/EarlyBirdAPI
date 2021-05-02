@@ -38,7 +38,24 @@ namespace EarlyBird.API
         {
             services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
 
-            services.AddDbContextPool<EarlyBirdContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"), b => b.MigrationsAssembly("EarlyBird.DataAccess")));
+            string dbEnvVar = Environment.GetEnvironmentVariable("DATABASE_URL");
+            //parse database URL. Format is postgres://<username>:<password>@<host>/<dbname>
+            var uri = new Uri(dbEnvVar);
+            var username = uri.UserInfo.Split(':')[0];
+            var password = uri.UserInfo.Split(':')[1];
+            var host = uri.Host;
+            var port = uri.Port;
+            var database = uri.LocalPath.TrimStart('/');
+            var connectionString =
+                "Host=" + host +
+                ";Port=" + port +
+                ";Database=" + database +
+                ";Username=" + username +
+                ";Password=" + password +
+                ";SSLMode=Require;" +
+                "TrustServerCertificate=True;";
+            services.AddDbContextPool<EarlyBirdContext>(options => options.UseNpgsql(connectionString));
+
 
             services.AddControllers();
             services.AddCors();
@@ -47,7 +64,7 @@ namespace EarlyBird.API
             services.AddRepositories();
             services.AddServices();
 
-            
+
             services.AddScoped(provider => new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile(provider.GetService<IUsersRepository>()));
@@ -64,17 +81,19 @@ namespace EarlyBird.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EarlyBird.API v1"));
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EarlyBird.API v1"));
+
             app.UseCors(x => x.AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .WithOrigins("http://localhost:3000")
                                 .AllowCredentials()); // This represents the policy.
+
             app.UseHttpsRedirection();
-            
+
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -114,6 +133,10 @@ namespace EarlyBird.API
         public static void AddAuthServices(this IServiceCollection services, IConfiguration configuration)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            string secret = configuration["AuthorizationSettings:Secret"];
+            if (env != "Development")
+                secret = Environment.GetEnvironmentVariable("AUTH_SECRET");
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -128,7 +151,7 @@ namespace EarlyBird.API
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["AuthorizationSettings:Issuer"],
                         ValidAudience = configuration["AuthorizationSettings:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthorizationSettings:Secret"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
                         ClockSkew = TimeSpan.Zero
                     };
                     options.Events = new JwtBearerEvents

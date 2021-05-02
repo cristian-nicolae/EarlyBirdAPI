@@ -61,14 +61,15 @@ namespace EarlyBird.DataAccess
                  .HasForeignKey(oc => oc.OfferId)
                  .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
-            modelBuilder.Entity<CategoryEntity>().HasData(GetSeedData<CategoryEntity>("CategorySeed.json"));
-            modelBuilder.Entity<LocationEntity>().HasData(GetSeedData<LocationEntity>("LocationSeed.json"));
-            modelBuilder.Entity<OfferEntity>().HasData(GetSeedData<OfferEntity>("OfferSeed.json"));
-            modelBuilder.Entity<OfferCategoryEntity>().HasData(GetSeedData<OfferCategoryEntity>("OfferCategorySeed.json"));
-            modelBuilder.Entity<ReviewEntity>().HasData(GetSeedData<ReviewEntity>("ReviewSeed.json"));
-
-
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
+                modelBuilder.Entity<CategoryEntity>().HasData(GetSeedData<CategoryEntity>("CategorySeed.json"));
+                modelBuilder.Entity<LocationEntity>().HasData(GetSeedData<LocationEntity>("LocationSeed.json"));
+                modelBuilder.Entity<OfferEntity>().HasData(GetSeedData<OfferEntity>("OfferSeed.json"));
+                modelBuilder.Entity<OfferCategoryEntity>().HasData(GetSeedData<OfferCategoryEntity>("OfferCategorySeed.json"));
+                modelBuilder.Entity<ReviewEntity>().HasData(GetSeedData<ReviewEntity>("ReviewSeed.json"));
+            }
         }
 
         #region private methods
@@ -84,18 +85,21 @@ namespace EarlyBird.DataAccess
                 return JsonConvert.DeserializeObject<List<T>>(json);
             }
         }
+
         private IEnumerable<UserEntity> SeedUsers()
         {
             var users = new List<UserEntity>();
-            var salt1 = BCrypt.Net.BCrypt.GenerateSalt();
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
+            var username = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
+            var password = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
             users.Add(new UserEntity
             {
                 Id = Guid.Parse("07d94746-c113-4de6-a0bf-8c4789b51c67"),
-                Username = "admin",
-                Firstname = "Cristian",
-                Lastname = "Nicolae",
-                Salt = salt1,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin" + salt1),
+                Username = username,
+                Firstname = "Admin",
+                Lastname = "EarlyBird",
+                Salt = salt,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(password + salt),
                 Role = Roles.Admin
             });
 
@@ -147,6 +151,7 @@ namespace EarlyBird.DataAccess
 
             return users;
         }
+
         #endregion
 
 
