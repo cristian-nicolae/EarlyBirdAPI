@@ -23,3 +23,12 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+  
+build:
+    docker:
+        web: EarlyBird.API/Dockerfile
+setup:
+  addons:
+  - plan: heroku-postgresql
+    as: DATABASE_URL
