@@ -23,7 +23,12 @@ namespace EarlyBird.BusinessLogic.Services
         }
         public string GenerateAccessToken(UserDto user)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authorizationSettings.Secret));
+            SymmetricSecurityKey secretKey;
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authorizationSettings.Secret));
+            else
+                secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("AUTH_SECRET")));
+
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
             {
