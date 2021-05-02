@@ -61,12 +61,15 @@ namespace EarlyBird.DataAccess
                  .HasForeignKey(oc => oc.OfferId)
                  .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
-            modelBuilder.Entity<CategoryEntity>().HasData(GetSeedData<CategoryEntity>("CategorySeed.json"));
-            modelBuilder.Entity<LocationEntity>().HasData(GetSeedData<LocationEntity>("LocationSeed.json"));
-            modelBuilder.Entity<OfferEntity>().HasData(GetSeedData<OfferEntity>("OfferSeed.json"));
-            modelBuilder.Entity<OfferCategoryEntity>().HasData(GetSeedData<OfferCategoryEntity>("OfferCategorySeed.json"));
-            modelBuilder.Entity<ReviewEntity>().HasData(GetSeedData<ReviewEntity>("ReviewSeed.json"));
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                modelBuilder.Entity<UserEntity>().HasData(SeedUsers());
+                modelBuilder.Entity<CategoryEntity>().HasData(GetSeedData<CategoryEntity>("CategorySeed.json"));
+                modelBuilder.Entity<LocationEntity>().HasData(GetSeedData<LocationEntity>("LocationSeed.json"));
+                modelBuilder.Entity<OfferEntity>().HasData(GetSeedData<OfferEntity>("OfferSeed.json"));
+                modelBuilder.Entity<OfferCategoryEntity>().HasData(GetSeedData<OfferCategoryEntity>("OfferCategorySeed.json"));
+                modelBuilder.Entity<ReviewEntity>().HasData(GetSeedData<ReviewEntity>("ReviewSeed.json"));
+            }
         }
 
         #region private methods
