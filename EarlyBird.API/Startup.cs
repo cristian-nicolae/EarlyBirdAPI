@@ -35,7 +35,30 @@ namespace EarlyBird.API
         {
             services.Configure<AuthorizationSettings>(Configuration.GetSection("AuthorizationSettings"));
 
-            services.AddDbContextPool<EarlyBirdContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"), b => b.MigrationsAssembly("EarlyBird.DataAccess")));
+            string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if(env == "Development")
+                services.AddDbContextPool<EarlyBirdContext>(options => options.UseSqlite(Configuration.GetConnectionString("Sqlite"),
+                                                                        b => b.MigrationsAssembly("EarlyBird.DataAccess")));
+            else
+            {
+                string dbEnvVar = Environment.GetEnvironmentVariable("DATABASE_URL");
+                //parse database URL. Format is postgres://<username>:<password>@<host>/<dbname>
+                var uri = new Uri(dbEnvVar);
+                var username = uri.UserInfo.Split(':')[0];
+                var password = uri.UserInfo.Split(':')[1];
+                var host = uri.Host;
+                var port = uri.Port;
+                var database = uri.LocalPath.TrimStart('/');
+                var connectionString =
+                    "Host=" + host +
+                    ";Port=" + port +
+                    ";Database=" + database +
+                    ";Username=" + username +
+                    ";Password=" + password +
+                    ";SSLMode=Require;" +
+                    "TrustServerCertificate=True;";
+                services.AddDbContextPool<EarlyBirdContext>(options => options.UseNpgsql(connectionString));
+            }
 
             services.AddControllers();
             services.AddCors();
