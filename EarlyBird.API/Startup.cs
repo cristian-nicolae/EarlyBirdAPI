@@ -93,7 +93,9 @@ namespace EarlyBird.API
 
             app.UseCors(x => x.AllowAnyHeader()
                                 .AllowAnyMethod()
-                                .WithOrigins("http://localhost:3000")
+                                .WithOrigins("http://localhost:3000", 
+                                             "https://early-birds.firebaseapp.com", 
+                                             "https://early-birds.web.app")
                                 .AllowCredentials()); // This represents the policy.
 
             app.UseHttpsRedirection();
