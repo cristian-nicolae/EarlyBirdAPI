@@ -22,4 +22,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 # ENTRYPOINT ["dotnet", "EarlyBird.API.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet WebApi.dll
+CMD ASPNETCORE_URLS=https://*:$PORT dotnet WebApi.dll
