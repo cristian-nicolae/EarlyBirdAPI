@@ -1,18 +1,14 @@
 ﻿using EarlyBird.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories.Interfaces
 {
     public interface IConversationsRepository
     {
-        ConversationEntity GetById(int id);
-        IEnumerable<ConversationEntity> GetUserConversations(Guid userId);
-        ConversationEntity Add(ConversationEntity conversationEntity);
-        bool Delete(ConversationEntity conversationEntity);
-        bool Update(int id, ConversationEntity conversationEntity);
+        Task<ConversationEntity> GetByIdAsync(int id);
+        Task<IEnumerable<ConversationEntity>> GetUserConversationsAsync(Guid userId);
+        Task<ConversationEntity> AddAsync(ConversationEntity conversationEntity);
     }
 }
