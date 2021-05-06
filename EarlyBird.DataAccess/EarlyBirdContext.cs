@@ -20,6 +20,8 @@ namespace EarlyBird.DataAccess
         public DbSet<LocationEntity> Locations { get; set; }
         public DbSet<OfferCategoryEntity> OfferCategories { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }
+        public DbSet<ConversationEntity> Conversations { get; set; }
+        public DbSet<MessageEntity> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
