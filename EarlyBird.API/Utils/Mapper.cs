@@ -15,6 +15,8 @@ namespace EarlyBird.API.Utils
             {
                 Username = model.Username,
                 Password = model.Password,
+                Firstname = model.Firstname,
+                Lastname = model.Lastname,
                 Role = model.Role
             };
         }
