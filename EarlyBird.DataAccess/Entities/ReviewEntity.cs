@@ -14,7 +14,6 @@ namespace EarlyBird.DataAccess.Entities
         public string Title { get; set; }
         
         [Required]
-        [Column(TypeName = "tinyint")]
         public int Rating { get; set; }
         
         [MaxLength(1000)]

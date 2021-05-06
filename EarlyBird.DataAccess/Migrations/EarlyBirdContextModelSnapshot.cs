@@ -4,6 +4,7 @@ using EarlyBird.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EarlyBird.DataAccess.Migrations
 {
@@ -14,18 +15,21 @@ namespace EarlyBird.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.4");
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("EarlyBird.DataAccess.Entities.CategoryEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -73,22 +77,23 @@ namespace EarlyBird.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("CityName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("StreetName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("StreetNumber")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -129,13 +134,14 @@ namespace EarlyBird.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("OfferId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -272,41 +278,42 @@ namespace EarlyBird.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<Guid?>("AccepterId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<double>("Cost")
                         .HasMaxLength(100)
-                        .HasColumnType("REAL");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<int>("LocationId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Prerequisites")
                         .HasMaxLength(500)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(500)");
 
                     b.Property<Guid>("PublisherId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -567,25 +574,26 @@ namespace EarlyBird.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("ReceiverId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("SenderId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -647,35 +655,35 @@ namespace EarlyBird.DataAccess.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("Role")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -685,11 +693,11 @@ namespace EarlyBird.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("07d94746-c113-4de6-a0bf-8c4789b51c67"),
-                            Firstname = "Cristian",
-                            Lastname = "Nicolae",
-                            PasswordHash = "$2a$11$1DDhMkGdHKzRpZD58VrBkeyAVzyOwy/6U.477iRPKa0nqrshG5Uai",
+                            Firstname = "Admin",
+                            Lastname = "EarlyBird",
+                            PasswordHash = "$2a$11$IH/atk7HCBzojmHULx65fOi6TUv5HVSefif3LzpuncR9nM2jaOdeS",
                             Role = 1,
-                            Salt = "$2a$11$sXaoXQUj6BI42tEqXOn1Le",
+                            Salt = "$2a$11$atHhn.97Hx2lu9ZVIleJxO",
                             Username = "admin"
                         },
                         new
@@ -697,9 +705,9 @@ namespace EarlyBird.DataAccess.Migrations
                             Id = new Guid("6ac15295-fffe-49a8-aaaf-cca3255e9bb0"),
                             Firstname = "Andrei",
                             Lastname = "Varga",
-                            PasswordHash = "$2a$11$YURVMRGs3QDhVZgpFWQpXOHUUOp49/LymzWGXFTLy8kVJrOER4ycy",
+                            PasswordHash = "$2a$11$KK4FjAFr9Shqn9Bg9vKsceJFeJpl4fj25exIibpbxCJ8xM5CbX0PC",
                             Role = 2,
-                            Salt = "$2a$11$E.61pvDXr2CQL27VO3ImB.",
+                            Salt = "$2a$11$u5sh2.rtSn.O0kRFXDoiyO",
                             Username = "worker"
                         },
                         new
@@ -707,9 +715,9 @@ namespace EarlyBird.DataAccess.Migrations
                             Id = new Guid("3a779cd5-acf9-44be-b1c9-342f5edc88cb"),
                             Firstname = "Andrei-Vlad",
                             Lastname = "Popica",
-                            PasswordHash = "$2a$11$.0eYZPNhxxrxf61btEY0KOAcjxQVv.Il/qT0uaZAp..iz2RF8kjzW",
+                            PasswordHash = "$2a$11$eB.IWCtTjllLHwqc44W7O.JohBzQxR/UvaNPSbWqv5.5/E/Hd/LgG",
                             Role = 3,
-                            Salt = "$2a$11$H4r.INnHWvEHJCL9Hce7..",
+                            Salt = "$2a$11$L3Fd.SmEU8bZfZCRHs2XXO",
                             Username = "publisher"
                         },
                         new
@@ -717,9 +725,9 @@ namespace EarlyBird.DataAccess.Migrations
                             Id = new Guid("1545516d-abe8-4597-96a4-7998e8c51c79"),
                             Firstname = "Marius-Cristian",
                             Lastname = "Socaci",
-                            PasswordHash = "$2a$11$SKp590yIMqR2UZlHGw71EeleTKpqctbTirYX8UgL6DxkLn.xQB4YC",
+                            PasswordHash = "$2a$11$P/q53CiRYdHnyFD1hhoYU.W1tmw7f9krHiEiTULMw7q0prZ113D8O",
                             Role = 3,
-                            Salt = "$2a$11$2uYukkue1wmvWBfNqHLfYO",
+                            Salt = "$2a$11$QgoJeOT/epKHqOggLDE8Se",
                             Username = "publisher2"
                         },
                         new
@@ -727,9 +735,9 @@ namespace EarlyBird.DataAccess.Migrations
                             Id = new Guid("d935c8e9-ab96-4ae9-a7b3-6c6e6ec384c5"),
                             Firstname = "Flaviu",
                             Lastname = "Raita",
-                            PasswordHash = "$2a$11$zO7pPer/sSlNFKOT7autYOQWVwe.lhiBXqUv8spAlzonZXKNABPSi",
+                            PasswordHash = "$2a$11$fiSHj1uLBu33LrBOEj/ZZunaxzjUMC.r5UaP2DJ5GtyxZIFetUPCe",
                             Role = 2,
-                            Salt = "$2a$11$2O5ChQH25x5s2wEMeGN/G.",
+                            Salt = "$2a$11$XK0iZ.mFMNNAUW08/pDyhO",
                             Username = "worker2"
                         });
                 });
