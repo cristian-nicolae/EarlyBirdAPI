@@ -10,6 +10,8 @@ namespace EarlyBird.BusinessLogic.Services
 {
     public class ConversationsService : IConversationsService
     {
+
+        
         public Task<ConversationViewDto> AddAsync(ConversationDto conversationDto)
         {
             throw new NotImplementedException();

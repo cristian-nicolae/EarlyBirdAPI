@@ -1,26 +1,39 @@
 ﻿using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories
 {
     public class ConversationsRepository : IConversationsRepository
     {
-        public Task<ConversationEntity> AddAsync(ConversationEntity conversationEntity)
+        private readonly EarlyBirdContext context;
+
+        public ConversationsRepository(EarlyBirdContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task<ConversationEntity> GetByIdAsync(int id)
+        public async Task<ConversationEntity> AddAsync(ConversationEntity conversationEntity)
         {
-            throw new NotImplementedException();
+            await context.AddAsync(conversationEntity);
+            await context.SaveChangesAsync();
+            return conversationEntity;
         }
 
-        public Task<IEnumerable<ConversationEntity>> GetUserConversationsAsync(Guid userId)
+        public async Task<ConversationEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Conversations.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<ConversationEntity>> GetUserConversationsAsync(Guid userId)
+        {
+            return await context.Conversations
+                .Where(x => x.FirstId == userId || x.SecondId == userId)
+                .ToListAsync();
         }
     }
 }

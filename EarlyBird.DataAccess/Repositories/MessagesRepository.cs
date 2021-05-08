@@ -1,21 +1,38 @@
 ﻿using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories
 {
     public class MessagesRepository : IMessagesRepository
     {
-        public Task<MessageEntity> AddAsync(MessageEntity messageEntity)
+
+        private readonly EarlyBirdContext context;
+
+        public MessagesRepository(EarlyBirdContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task<IEnumerable<MessageEntity>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)
+        public async Task<MessageEntity> AddAsync(MessageEntity messageEntity)
         {
-            throw new NotImplementedException();
+            await context.AddAsync(messageEntity);
+            await context.SaveChangesAsync();
+            return messageEntity;
+        }
+
+        public async Task<IEnumerable<MessageEntity>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)
+        {
+           return await context.Messages
+            .Where(x => x.ConversationId == conversationId)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+            
         }
     }
 }
