@@ -78,5 +78,50 @@ namespace EarlyBird.BusinessLogic.Utils
                 Description = updateDto.Description
             };
         }
+
+        public static ConversationViewDto ToConversationViewDto(this ConversationEntity conversationEntity)
+        {
+            return new ConversationViewDto
+            {
+                Id = conversationEntity.Id,
+                NewMessage = conversationEntity.NewMessage,
+                FirstId = conversationEntity.FirstId,
+                SecondId = conversationEntity.SecondId
+            };
+        }
+
+        public static ConversationEntity ToConversationEntity(this ConversationDto conversationDto)
+        {
+            return new ConversationEntity
+            {
+                NewMessage = false,
+                Id = default,
+                FirstId = conversationDto.FirstId,
+                SecondId = conversationDto.SecondId,
+            };
+        }
+
+        public static MessageEntity ToMessageEntity(this MessageDto messageDto)
+        {
+            return new MessageEntity
+            {
+                Id = default,
+                ConversationId = messageDto.ConversationId,
+                SenderId = messageDto.SenderId,
+                Content = messageDto.Content
+            };
+        }
+
+        public static ViewMessageDto ToViewMessageDto(this MessageEntity messageEntity)
+        {
+            return new ViewMessageDto
+            {
+                Id = messageEntity.Id,
+                SenderId = messageEntity.SenderId,
+                Content = messageEntity.Content,
+                ConversationId = messageEntity.ConversationId
+            };
+        }
+
     }
 }

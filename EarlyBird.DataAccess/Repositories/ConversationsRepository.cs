@@ -1,38 +1,48 @@
 ﻿using EarlyBird.DataAccess.Entities;
 using EarlyBird.DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories
 {
     public class ConversationsRepository : IConversationsRepository
     {
-        public ConversationEntity Add(ConversationEntity conversationEntity)
+        private readonly EarlyBirdContext context;
+
+        public ConversationsRepository(EarlyBirdContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public bool Delete(ConversationEntity conversationEntity)
+        public async Task<ConversationEntity> AddAsync(ConversationEntity conversationEntity)
         {
-            throw new NotImplementedException();
+            await context.AddAsync(conversationEntity);
+            await context.SaveChangesAsync();
+            return conversationEntity;
         }
 
-        public ConversationEntity GetById(int id)
+        public async Task<ConversationEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Conversations.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public IEnumerable<ConversationEntity> GetUserConversations(Guid userId)
+        public async Task<IEnumerable<ConversationEntity>> GetUserConversationsAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            return await context.Conversations
+                .Where(x => x.FirstId == userId || x.SecondId == userId)
+                .OrderByDescending(x => x.NewMessage)
+                .ToListAsync();
         }
 
-        public bool Update(int id, ConversationEntity conversationEntity)
+        public async Task UpdateNewMessageAsync(int conversationId, bool newMessage)
         {
-            throw new NotImplementedException();
+            var conversation = await GetByIdAsync(conversationId);
+            conversation.NewMessage = newMessage;
+            await context.SaveChangesAsync();
         }
+
     }
 }
