@@ -1,9 +1,10 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services.Interfaces;
+using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EarlyBird.BusinessLogic.Services
@@ -11,20 +12,29 @@ namespace EarlyBird.BusinessLogic.Services
     public class ConversationsService : IConversationsService
     {
 
-        
-        public Task<ConversationViewDto> AddAsync(ConversationDto conversationDto)
+        private readonly IConversationsRepository conversationsRepository;
+
+        public ConversationsService(IConversationsRepository conversationsRepository)
         {
-            throw new NotImplementedException();
+            this.conversationsRepository = conversationsRepository;
         }
 
-        public Task<ConversationViewDto> GetByIdAsync(int id)
+        public async Task<ConversationViewDto> AddAsync(ConversationDto conversationDto)
         {
-            throw new NotImplementedException();
+            var result = await conversationsRepository.AddAsync(conversationDto.ToConversationEntity());
+            return result.ToConversationViewDto();
+            
         }
 
-        public Task<IEnumerable<ConversationViewDto>> GetUserConversationsAsync(Guid userId)
+        public async Task<ConversationViewDto> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return (await conversationsRepository.GetByIdAsync(id)).ToConversationViewDto();
+        }
+
+        public async Task<IEnumerable<ConversationViewDto>> GetUserConversationsAsync(Guid userId)
+        {
+            return (await conversationsRepository.GetUserConversationsAsync(userId))
+                .Select(x => x.ToConversationViewDto());
         }
     }
 }

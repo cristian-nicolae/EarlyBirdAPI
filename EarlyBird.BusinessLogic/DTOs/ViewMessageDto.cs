@@ -13,9 +13,6 @@ namespace EarlyBird.BusinessLogic.DTOs
 
         public int ConversationId { get; set; }
 
-        public ConversationViewDto ConversationViewDto { get; set; }
-
-
         public Guid SenderId { get; set; }
 
 

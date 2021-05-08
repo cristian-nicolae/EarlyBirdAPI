@@ -1,29 +1,33 @@
 ﻿using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services.Interfaces;
-using EarlyBird.DataAccess.Repositories;
+using EarlyBird.BusinessLogic.Utils;
+using EarlyBird.DataAccess.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EarlyBird.BusinessLogic.Services
 {
     public class MessagesService : IMessagesService
     {
+        private readonly IMessagesRepository messagesRepository;
 
-        public MessagesService(MessagesRepository messagesRepository)
+        public MessagesService(IMessagesRepository messagesRepository)
         {
-
-        }
-        public Task<ViewMessageDto> AddAsync(MessageDto messageDto)
-        {
-            throw new NotImplementedException();
+            this.messagesRepository = messagesRepository;
         }
 
-        public Task<IEnumerable<ViewMessageDto>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)
+        public async Task<ViewMessageDto> AddAsync(MessageDto messageDto)
         {
-            throw new NotImplementedException();
+            var result = await messagesRepository.AddAsync(messageDto.ToMessageEntity());
+            return result.ToViewMessageDto();
+        }
+
+        public async Task<IEnumerable<ViewMessageDto>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)
+        {
+            return (await messagesRepository.GetConversationMessagesAsync(conversationId, pageSize, pageNumber))
+                .Select(x => x.ToViewMessageDto());
         }
     }
 }
