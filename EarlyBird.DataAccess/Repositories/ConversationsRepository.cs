@@ -33,10 +33,11 @@ namespace EarlyBird.DataAccess.Repositories
         {
             return await context.Conversations
                 .Where(x => x.FirstId == userId || x.SecondId == userId)
+                .OrderByDescending(x => x.NewMessage)
                 .ToListAsync();
         }
 
-        public async Task UpdateNewMessage(int conversationId, bool newMessage)
+        public async Task UpdateNewMessageAsync(int conversationId, bool newMessage)
         {
             var conversation = await GetByIdAsync(conversationId);
             conversation.NewMessage = newMessage;

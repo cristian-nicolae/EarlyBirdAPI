@@ -37,5 +37,10 @@ namespace EarlyBird.BusinessLogic.Services
                 .Select(x => x.ToConversationViewDto());
         }
 
+        public async Task UpdateNewMessageAsync(int conversationId, bool newMessage)
+        {
+            await conversationsRepository.UpdateNewMessageAsync(conversationId, newMessage);
+        }
+
     }
 }

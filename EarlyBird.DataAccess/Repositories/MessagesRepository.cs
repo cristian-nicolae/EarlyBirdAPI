@@ -29,6 +29,7 @@ namespace EarlyBird.DataAccess.Repositories
         {
            return await context.Messages
             .Where(x => x.ConversationId == conversationId)
+            .OrderByDescending(x => x.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

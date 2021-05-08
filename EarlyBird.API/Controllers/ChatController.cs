@@ -1,5 +1,6 @@
 ﻿using EarlyBird.API.Hubs;
 using EarlyBird.API.Models;
+using EarlyBird.API.Utils;
 using EarlyBird.BusinessLogic.DTOs;
 using EarlyBird.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -19,36 +20,100 @@ namespace EarlyBird.API.Controllers
         private readonly ITokenService _tokenService;
         private readonly IUsersService _usersService;
         private readonly IConversationsService _conversationsService;
+        private readonly IMessagesService _messagesService;
 
         public ChatController(IHubContext<ChatHub> chatHub,
                                 ITokenService tokenService,
                                 IUsersService usersService,
-                                IConversationsService conversationsService)
+                                IConversationsService conversationsService,
+                                IMessagesService messagesService)
         {
             _chatHub = chatHub;
             _tokenService = tokenService;
             _usersService = usersService;
             _conversationsService = conversationsService;
+            _messagesService = messagesService;
         }
 
-        [HttpPost("messages")]
+
+        [HttpGet("conversations/{conversationId}/messages")]
         [Authorize]
-        public async Task<IActionResult> SendMessage(ChatMessage message)
+        public async Task<IActionResult> GetMessages([FromRoute] int conversationId, [FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-           // await _chatHub.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
-        } 
-        [HttpPost("conversations")]
+            var conversation = await _conversationsService.GetByIdAsync(conversationId);
+            if (conversation == null)
+                return NotFound();
+
+            var currentUser = GetCurrentUser();
+            if (currentUser.Id != conversation.FirstId && currentUser.Id != conversation.SecondId)
+                return Forbid();
+
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                pageSize = 10;
+                pageNumber = 1;
+            }
+
+            var messages = await _messagesService.GetConversationMessagesAsync(conversationId, pageSize, pageNumber);
+            if(pageNumber == 1)
+                await _conversationsService.UpdateNewMessageAsync(conversationId, false);
+            return Ok(messages);
+        }
+
+        [HttpGet("conversations")]
         [Authorize]
-        public async Task<IActionResult> CreateConversation(ConversationDto conversationDto)
+        public async Task<IActionResult> GetConversationsForCurrentUser()
+        {
+            var currentUser = GetCurrentUser();
+            var conversations = await _conversationsService.GetUserConversationsAsync(currentUser.Id);
+            return Ok(conversations);
+        }
+
+        [HttpPost("conversations/{conversationId}/messages")]
+        [Authorize]
+        public async Task<IActionResult> SendMessage([FromBody] ChatMessage message, [FromRoute] int conversationId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
+
+            var conversation = await _conversationsService.GetByIdAsync(conversationId);
+            if (conversation == null)
+                return NotFound();
+
+            var currentUser = GetCurrentUser();
+            if (currentUser.Id != conversation.FirstId && currentUser.Id != conversation.SecondId)
+                return Forbid();
+       
+            var clientTask = _chatHub.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
+            var updateNewMessageTask = _conversationsService.UpdateNewMessageAsync(conversationId, true);
+            var saveMessageTask = _messagesService.AddAsync(message.ToMessageDto(currentUser.Id));
+            await clientTask;
+            await updateNewMessageTask;
+
+            var newMessage = await saveMessageTask;
+            return Ok(newMessage);
+        } 
+
+        [HttpPost("conversations")]
+        [Authorize]
+        public async Task<IActionResult> CreateConversation([FromBody] ConversationDto conversationDto)
+        {
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
+
+            var currentUser = GetCurrentUser();
+            if (currentUser.Id != conversationDto.FirstId && currentUser.Id != conversationDto.SecondId)
+                return Forbid();
+
             var conversation = await _conversationsService.AddAsync(conversationDto);
             if (conversation == null)
                 return StatusCode(StatusCodes.Status500InternalServerError);
             string uri = $"/api/conversations/{conversation.Id}";
             return Created(uri, conversation);
         }
+
+
 
         #region private methods
 

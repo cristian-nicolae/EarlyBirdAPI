@@ -10,5 +10,6 @@ namespace EarlyBird.BusinessLogic.Services.Interfaces
         Task<ConversationViewDto> GetByIdAsync(int id);
         Task<IEnumerable<ConversationViewDto>> GetUserConversationsAsync(Guid userId);
         Task<ConversationViewDto> AddAsync(ConversationDto conversationDto);
+        Task UpdateNewMessageAsync(int conversationId, bool newMessage);
     }
 }
