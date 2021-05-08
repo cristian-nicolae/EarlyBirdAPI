@@ -10,5 +10,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         Task<ConversationEntity> GetByIdAsync(int id);
         Task<IEnumerable<ConversationEntity>> GetUserConversationsAsync(Guid userId);
         Task<ConversationEntity> AddAsync(ConversationEntity conversationEntity);
+
+        Task UpdateNewMessage(int conversationId, bool newMessage);
     }
 }

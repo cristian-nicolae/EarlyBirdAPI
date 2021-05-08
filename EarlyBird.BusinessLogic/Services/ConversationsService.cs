@@ -22,13 +22,13 @@ namespace EarlyBird.BusinessLogic.Services
         public async Task<ConversationViewDto> AddAsync(ConversationDto conversationDto)
         {
             var result = await conversationsRepository.AddAsync(conversationDto.ToConversationEntity());
-            return result.ToConversationViewDto();
+            return result?.ToConversationViewDto();
             
         }
 
         public async Task<ConversationViewDto> GetByIdAsync(int id)
         {
-            return (await conversationsRepository.GetByIdAsync(id)).ToConversationViewDto();
+            return (await conversationsRepository.GetByIdAsync(id))?.ToConversationViewDto();
         }
 
         public async Task<IEnumerable<ConversationViewDto>> GetUserConversationsAsync(Guid userId)
@@ -36,5 +36,6 @@ namespace EarlyBird.BusinessLogic.Services
             return (await conversationsRepository.GetUserConversationsAsync(userId))
                 .Select(x => x.ToConversationViewDto());
         }
+
     }
 }

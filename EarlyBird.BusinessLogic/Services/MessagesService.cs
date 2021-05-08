@@ -21,7 +21,7 @@ namespace EarlyBird.BusinessLogic.Services
         public async Task<ViewMessageDto> AddAsync(MessageDto messageDto)
         {
             var result = await messagesRepository.AddAsync(messageDto.ToMessageEntity());
-            return result.ToViewMessageDto();
+            return result?.ToViewMessageDto();
         }
 
         public async Task<IEnumerable<ViewMessageDto>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)

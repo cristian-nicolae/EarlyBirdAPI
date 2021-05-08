@@ -20,5 +20,15 @@ namespace EarlyBird.API.Utils
                 Role = model.Role
             };
         }
+
+        public static MessageDto ToMessageDto(this ChatMessage chatMessage, Guid senderId)
+        {
+            return new MessageDto
+            {
+                ConversationId = chatMessage.ConversationId,
+                SenderId = senderId,
+                Content = chatMessage.Message
+            };
+        }
     }
 }
