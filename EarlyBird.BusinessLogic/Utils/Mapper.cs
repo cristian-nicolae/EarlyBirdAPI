@@ -83,6 +83,7 @@ namespace EarlyBird.BusinessLogic.Utils
         {
             return new ConversationViewDto
             {
+                Id = conversationEntity.Id,
                 NewMessage = conversationEntity.NewMessage,
                 FirstId = conversationEntity.FirstId,
                 SecondId = conversationEntity.SecondId

@@ -21,11 +21,11 @@ namespace EarlyBird.API.Utils
             };
         }
 
-        public static MessageDto ToMessageDto(this ChatMessage chatMessage, Guid senderId)
+        public static MessageDto ToMessageDto(this ChatMessage chatMessage, Guid senderId, int conversationId)
         {
             return new MessageDto
             {
-                ConversationId = chatMessage.ConversationId,
+                ConversationId = conversationId,
                 SenderId = senderId,
                 Content = chatMessage.Message
             };

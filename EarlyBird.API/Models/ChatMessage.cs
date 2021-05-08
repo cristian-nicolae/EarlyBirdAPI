@@ -10,8 +10,5 @@ namespace EarlyBird.API.Models
         [Required]
         [MaxLength(2000)]
         public string Message { get; set; }
-
-        [Required]
-        public int ConversationId { get; set; }
     }
 }

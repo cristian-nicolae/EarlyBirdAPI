@@ -85,12 +85,12 @@ namespace EarlyBird.API.Controllers
                 return Forbid();
        
             var clientTask = _chatHub.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
-            var updateNewMessageTask = _conversationsService.UpdateNewMessageAsync(conversationId, true);
-            var saveMessageTask = _messagesService.AddAsync(message.ToMessageDto(currentUser.Id));
-            await clientTask;
-            await updateNewMessageTask;
 
+            var saveMessageTask = _messagesService.AddAsync(message.ToMessageDto(currentUser.Id, conversationId));
+            await clientTask;
             var newMessage = await saveMessageTask;
+            await _conversationsService.UpdateNewMessageAsync(conversationId, true);
+
             return Ok(newMessage);
         } 
 
