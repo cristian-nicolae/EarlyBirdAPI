@@ -15,5 +15,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         CategoryEntity Add(CategoryEntity categoryEntity);
         bool Delete(CategoryEntity categoryEntity);
         bool Update(int id, CategoryEntity categoryEntity);
+        public bool CategoryExists(int id);
+
     }
 }

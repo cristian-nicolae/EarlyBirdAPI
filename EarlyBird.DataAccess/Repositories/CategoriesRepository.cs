@@ -50,5 +50,10 @@ namespace EarlyBird.DataAccess.Repositories
             return context.SaveChanges() > 0; 
         }
 
+        public bool CategoryExists(int id)
+        {
+            return context.Categories.Any(x => x.Id == id);
+        }
+
     }
 }
