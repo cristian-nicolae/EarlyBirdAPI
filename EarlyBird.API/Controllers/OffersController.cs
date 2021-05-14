@@ -57,12 +57,23 @@ namespace EarlyBird.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.Values);
+            try
+            {
 
-            addOfferDto.PublisherId = returnLoggedUserId();
-            var result = offersService.Add(addOfferDto);
-            var path = "api/offers/" + result.Id;
+                addOfferDto.PublisherId = returnLoggedUserId();
+                var result = offersService.Add(addOfferDto);
+                var path = "api/offers/" + result.Id;
 
-            return Created(path, result);
+                return Created(path, result);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch(FailedOperationException e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
         [HttpDelete]
