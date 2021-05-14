@@ -127,6 +127,7 @@ namespace EarlyBird.API
             services.AddScoped<IMessagesRepository, MessagesRepository>();
             services.AddScoped<IOffersRepository, OffersRepository>();
             services.AddScoped<IReviewsRepository, ReviewsRepository>();
+            services.AddScoped<IOfferCategoryRepository, OfferCategoryRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
