@@ -72,7 +72,7 @@ namespace EarlyBird.BusinessLogic.Services
             var offer = offersRepository.Add(mapper.Map<OfferEntity>(offerEntity));
 
             if (offer == null)
-                return null;
+                throw new FailedOperationException("The offer was not added");
             bool added = offerCategoryRepository.AddRange(offerEntity.CategoryIds, offer.Id);
             if (!added)
                 throw new FailedOperationException("Failed to add the categories to the offer");
