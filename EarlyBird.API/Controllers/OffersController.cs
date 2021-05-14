@@ -46,6 +46,8 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.All)]
         public IActionResult GetAllOffers([FromQuery] OfferFilterAndSort offerFilterQuery)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
             return Ok(offersService.GetAllOffers(offerFilterQuery, HttpContext.User.Identity as ClaimsIdentity));
         }
 
@@ -53,6 +55,9 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult AddOffer([FromBody] AddOfferDto addOfferDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
+
             addOfferDto.PublisherId = returnLoggedUserId();
             var result = offersService.Add(addOfferDto);
             var path = "api/offers/" + result.Id;
@@ -81,6 +86,8 @@ namespace EarlyBird.API.Controllers
         [Authorize(Policy = Policies.Publisher)]
         public IActionResult UpdateOffer([FromRoute] int offerId, [FromBody] UpdateOfferDto offer)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.Values);
             try
             {
                 if (!claimIdMatches(offersService.GetPublisherId(offerId))) return Forbid();

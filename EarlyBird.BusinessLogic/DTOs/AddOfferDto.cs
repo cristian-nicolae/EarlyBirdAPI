@@ -21,6 +21,7 @@ namespace EarlyBird.BusinessLogic.DTOs
         [Required]
         public OfferStatus Status { get; set; }
 
+        [Required]
         public Guid PublisherId { get; set; }
 
         public AddLocationDto Location { get; set; }
@@ -30,6 +31,9 @@ namespace EarlyBird.BusinessLogic.DTOs
 
         [MaxLength(500)]
         public string Notes { get; set; }
+
+        [Required]
+        public IEnumerable<int> CategoryIds{ get; set; }
 
     }
 }
