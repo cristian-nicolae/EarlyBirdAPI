@@ -22,16 +22,21 @@ namespace EarlyBird.BusinessLogic.Services
         private readonly ICategoriesService categoriesService;
         private readonly ITokenService tokenService;
         private readonly IMapper mapper;
-
+        private readonly ICategoriesRepository categoriesRepository;
+        private readonly IOfferCategoryRepository offerCategoryRepository;
         public OffersService(IOffersRepository offersRepository,
                              IMapper mapper,
                              ICategoriesService categoriesService,
-                             ITokenService tokenService)
+                             ITokenService tokenService,
+                             ICategoriesRepository categoriesRepository, 
+                             IOfferCategoryRepository offerCategoryRepository)
         {
             this.offersRepository = offersRepository;
             this.categoriesService = categoriesService;
             this.mapper = mapper;
             this.tokenService = tokenService;
+            this.categoriesRepository = categoriesRepository;
+            this.offerCategoryRepository = offerCategoryRepository;
         }
 
         public ViewOfferDto GetById(int id)
@@ -61,7 +66,17 @@ namespace EarlyBird.BusinessLogic.Services
 
         public ViewOfferDto Add(AddOfferDto offerEntity)
         {
+            if (!categoriesRepository.CategoriesExist(offerEntity.CategoryIds))
+                throw new NotFoundException("One of the categories does not exist");
+
             var offer = offersRepository.Add(mapper.Map<OfferEntity>(offerEntity));
+
+            if (offer == null)
+                throw new FailedOperationException("The offer was not added");
+            bool added = offerCategoryRepository.AddRange(offerEntity.CategoryIds, offer.Id);
+            if (!added)
+                throw new FailedOperationException("Failed to add the categories to the offer");
+
             return mapper.Map<ViewOfferDto>(offer);
         }
 
@@ -112,7 +127,31 @@ namespace EarlyBird.BusinessLogic.Services
             {
             }
 
-            #endregion
         }
+        public class NotFoundException : Exception
+        {
+            public NotFoundException()
+            {
+            }
+
+            public NotFoundException(string message) : base(message)
+            {
+            }
+
+        }
+
+        public class FailedOperationException : Exception
+        {
+            public FailedOperationException()
+            {
+            }
+
+            public FailedOperationException(string message) : base(message)
+            {
+            }
+
+        }
+        #endregion
+
     }
 }

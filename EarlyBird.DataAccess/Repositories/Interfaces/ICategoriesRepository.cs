@@ -1,9 +1,5 @@
 ﻿using EarlyBird.DataAccess.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EarlyBird.DataAccess.Repositories.Interfaces
 {
@@ -15,5 +11,7 @@ namespace EarlyBird.DataAccess.Repositories.Interfaces
         CategoryEntity Add(CategoryEntity categoryEntity);
         bool Delete(CategoryEntity categoryEntity);
         bool Update(int id, CategoryEntity categoryEntity);
+        public bool CategoriesExist(IEnumerable<int> ids);
+
     }
 }
