@@ -84,7 +84,9 @@ namespace EarlyBird.API.Controllers
             if (currentUser.Id != conversation.FirstId && currentUser.Id != conversation.SecondId)
                 return Forbid();
        
-            var clientTask = _chatHub.Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", message);
+            var clientTask = _chatHub.Clients
+                .User(message.ReceiverId.ToString())
+                .SendAsync("ReceiveMessage",new { message = message.Message, conversationId });
 
             var saveMessageTask = _messagesService.AddAsync(message.ToMessageDto(currentUser.Id, conversationId));
             await clientTask;
