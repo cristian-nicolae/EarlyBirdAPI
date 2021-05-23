@@ -49,7 +49,7 @@ namespace EarlyBird.API.Controllers
                 return Forbid();
 
             var messages = await _messagesService.GetConversationMessagesAsync(conversationId, pageSize, pageNumber);
-            if(pageNumber == 1)
+            if(pageSize <= 0 || pageNumber <= 1)
                 await _conversationsService.UpdateNewMessageAsync(conversationId, false);
             return Ok(messages);
         }
