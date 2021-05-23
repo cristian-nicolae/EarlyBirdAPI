@@ -44,5 +44,13 @@ namespace EarlyBird.DataAccess.Repositories
             await context.SaveChangesAsync();
         }
 
+        public async Task<ConversationEntity> GetByUserIds(Guid id1, Guid id2)
+        {
+            var conversation = await context.Conversations
+                .Where(x => (x.FirstId == id1 || x.SecondId == id1) && (x.FirstId == id2 || x.SecondId == id2))
+                .FirstOrDefaultAsync();
+            return conversation;
+        }
+
     }
 }
