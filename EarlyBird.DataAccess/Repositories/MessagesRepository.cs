@@ -35,5 +35,14 @@ namespace EarlyBird.DataAccess.Repositories
             .ToListAsync();
             
         }
+
+        public async Task<IEnumerable<MessageEntity>> GetConversationMessagesAsync(int conversationId)
+        {
+            return await context.Messages
+             .Where(x => x.ConversationId == conversationId)
+             .OrderByDescending(x => x.Id)
+             .ToListAsync();
+
+        }
     }
 }

@@ -26,6 +26,12 @@ namespace EarlyBird.BusinessLogic.Services
 
         public async Task<IEnumerable<ViewMessageDto>> GetConversationMessagesAsync(int conversationId, int pageSize, int pageNumber)
         {
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                return (await messagesRepository.GetConversationMessagesAsync(conversationId))
+                    .Select(x => x.ToViewMessageDto());
+            }
+
             return (await messagesRepository.GetConversationMessagesAsync(conversationId, pageSize, pageNumber))
                 .Select(x => x.ToViewMessageDto());
         }

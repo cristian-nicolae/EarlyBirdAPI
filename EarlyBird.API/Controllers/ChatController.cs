@@ -48,12 +48,6 @@ namespace EarlyBird.API.Controllers
             if (currentUser.Id != conversation.FirstId && currentUser.Id != conversation.SecondId)
                 return Forbid();
 
-            if (pageSize <= 0 || pageNumber <= 0)
-            {
-                pageSize = 10;
-                pageNumber = 1;
-            }
-
             var messages = await _messagesService.GetConversationMessagesAsync(conversationId, pageSize, pageNumber);
             if(pageNumber == 1)
                 await _conversationsService.UpdateNewMessageAsync(conversationId, false);
