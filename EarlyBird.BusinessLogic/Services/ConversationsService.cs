@@ -21,6 +21,9 @@ namespace EarlyBird.BusinessLogic.Services
 
         public async Task<ConversationViewDto> AddAsync(ConversationDto conversationDto)
         {
+            var conversation = await conversationsRepository.GetByUserIds(conversationDto.FirstId, conversationDto.SecondId);
+            if (conversation != null)
+                return conversation.ToConversationViewDto();
             var result = await conversationsRepository.AddAsync(conversationDto.ToConversationEntity());
             return result?.ToConversationViewDto();
             
